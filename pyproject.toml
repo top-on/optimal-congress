@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "37c3-schedule-optimizer"
+name = "congress-optimizer"
 version = "0.1.0"
 description = "Optimizer for the 37c3 Fahrplan"
 authors = ["top-on <top-on@posteo.de>"]
