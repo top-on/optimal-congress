@@ -1,0 +1,42 @@
+[tool.poetry]
+name = "37c3-schedule-optimizer"
+version = "0.1.0"
+description = "Optimizer for the 37c3 Fahrplan"
+authors = ["top-on <top-on@posteo.de>"]
+readme = "README.md"
+packages = [{ include = "congress_optimizer" }]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pydantic = "^2.5.2"
+
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.27.1"
+notebook = "^7.0.6"
+ruff = "^0.1.6"
+mypy = "^1.7.1"
+pytest = "^7.4.3"
+pre-commit = "^3.6.0"
+types-requests = "^2.31.0.10"
+
+[tool.mypy]
+ignore_missing_imports = true
+
+[tool.ruff]
+fix = true
+line-length = 88
+
+[tool.ruff.lint]
+select = [
+    # Pyflakes
+    "F",
+    # Pycodestyle
+    "E",
+    "W",
+    # isort
+    "I001",
+]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

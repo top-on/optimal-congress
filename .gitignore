@@ -1,0 +1,9 @@
+# python
+*.py[cod]
+/dist
+
+# ide
+.vscode
+
+# data folder
+/data
