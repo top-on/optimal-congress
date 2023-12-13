@@ -3,7 +3,7 @@
 from datetime import datetime
 from uuid import UUID
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from congress_optimizer.config import HUB_EVENT_ROUTE
 
@@ -32,10 +32,19 @@ class Event(BaseModel):
     def __str__(self) -> str:
         """Return a string representation of the event."""
         # get time without timezone
-        local_time = self.schedule_start.strftime("%Y-%m-%d %H:%M")
-        return f"'{self.name}' ({local_time}, {self.url})"
+        timestamp_start = self.schedule_start.strftime("%Y-%m-%d %H:%M")
+        time_end = self.schedule_end.strftime("%H:%M")
+        return f"'{self.name}' ({timestamp_start} - {time_end}, {self.url})"
 
     @property
     def url(self) -> str:
         """Return the url of the event."""
         return f"{HUB_EVENT_ROUTE}/{self.slug}"
+
+
+class Rating(BaseModel):
+    """A rating for an event."""
+
+    event_id: UUID
+    score: float = Field(description="A positive number describing utility to attend.")
+    timestamp: datetime = Field(default_factory=datetime.now)
