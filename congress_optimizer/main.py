@@ -5,13 +5,18 @@ from time import sleep
 
 import typer
 
-from congress_optimizer.io.api import load_events
+from congress_optimizer.io.api import fetch_events, fetch_rooms
+from congress_optimizer.io.cache import (
+    load_events,
+    load_ratings,
+    save_events,
+    save_rooms,
+)
 from congress_optimizer.optimize import optimize_schedule
 from congress_optimizer.ratings import (
     enquire_and_save_ratings,
     filter_latest_ratings,
     filter_unrated_events,
-    load_ratings,
 )
 
 app = typer.Typer(add_completion=False)
@@ -21,7 +26,7 @@ app = typer.Typer(add_completion=False)
 def users_callback(verbose: bool = typer.Option(False, "-v", "--verbose")) -> None:
     """Optimize your personal schedule for the 37c3."""
     # set log level
-    log_level = logging.DEBUG if verbose else logging.WARNING
+    log_level = logging.DEBUG if verbose else logging.INFO
     logging.basicConfig(level=log_level, format="%(message)s")
 
 
@@ -29,25 +34,37 @@ def users_callback(verbose: bool = typer.Option(False, "-v", "--verbose")) -> No
 def fetch() -> None:
     """Fetch events and rooms from API, and update local cache."""
 
-    print("To be implemented.")
+    # fetch from API
+    print("Fetching events and rooms from API...")
+    events = fetch_events()
+    rooms = fetch_rooms()
+
+    # print summary
+    print(f"Found {len(events)} events and {len(rooms)} rooms at API.")
+
+    # save to cache
+    print("Saving events and rooms to cache...")
+    save_events(events)
+    save_rooms(rooms)
 
 
 @app.command()
 def rate() -> None:
     """Interactively rate those events that have not been rated yet."""
 
-    print("fetching events...")
+    print("loading events and ratings from cache...")
     events = load_events()
+    ratings = load_ratings()
+    if len(events) == 0:
+        print("\nNo events found! Run `fetch` operation to load events from API.")
+        exit()
 
-    print("loading previous ratings...")
-    previous_ratings = load_ratings()
-
-    print(f"\nFound {len(events)} events and {len(previous_ratings)} ratings.")
+    print(f"\nFound {len(events)} events and {len(ratings)} ratings.")
     sleep(1)
 
     unrated_events = filter_unrated_events(
         events=events,
-        ratings=previous_ratings,
+        ratings=ratings,
     )
     if len(unrated_events) == 0:
         print("\nNo new events to rate. Exiting.")
@@ -60,8 +77,15 @@ def rate() -> None:
 def ratings() -> None:
     """List all latest ratings."""
 
-    ratings = load_ratings()
+    print("loading events and ratings from cache...")
     events = load_events()
+    ratings = load_ratings()
+    if len(events) == 0:
+        print("\nNo events found! Run `fetch` operation to load events from API.")
+        exit()
+    if len(ratings) == 0:
+        print("\nNo ratings found! Run `rate` operation to rate events.")
+        exit()
 
     latest_ratings = filter_latest_ratings(ratings)
     ratings_sorted = sorted(
@@ -84,8 +108,17 @@ def ratings() -> None:
 def optimize() -> None:
     """Optimize the schedule based on ratings."""
 
+    print("loading events and ratings from cache...")
     ratings = load_ratings()
     events = load_events()
+    if len(ratings) == 0 or len(events) == 0:
+        print(
+            "\nNo ratings or events found! Do the following:"
+            "\n1. Run `fetch` operation to load events from API."
+            "\n2. Run `rate` operation to rate events."
+            "\n3. Run `ratings` operation to check your ratings."
+        )
+        exit()
 
     latest_ratings = filter_latest_ratings(ratings)
 
