@@ -7,6 +7,11 @@ from congress_optimizer.models import Event, Rating
 
 
 def load_ratings() -> list[Rating]:
+    """Load ratings from disk.
+
+    Returns:
+        List of ratings.
+    """
     # create ratings directory if it doesn't exist
     RATINGS_DIR.mkdir(parents=True, exist_ok=True)
 
