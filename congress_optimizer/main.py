@@ -1,5 +1,6 @@
 """Main entry point for the 37c3 schedule optimizer."""
 
+import logging
 from time import sleep
 
 import typer
@@ -69,6 +70,13 @@ def ratings() -> None:
     print("Latest ratings:")
     for rating, event in rating_event:
         print(f"- Rating: {rating.score} - {event.name[:50]:.<52}{event.url}")
+
+
+@app.callback()
+def users_callback(verbose: bool = typer.Option(False, "-v", "--verbose")) -> None:
+    # set log level
+    log_level = logging.DEBUG if verbose else logging.WARNING
+    logging.basicConfig(level=log_level, format="%(message)s")
 
 
 @app.command()

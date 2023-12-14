@@ -1,6 +1,7 @@
 """Schedule optimization."""
 
-# %%
+import logging
+
 from pulp import PULP_CBC_CMD, LpMaximize, LpProblem, LpStatus, LpVariable
 
 from congress_optimizer.models import Event, Rating, events_overlap
@@ -26,7 +27,7 @@ def optimize_schedule(
     assert len(events) == len(ratings)
 
     # define problem
-    prob = LpProblem(name="Optimal Congress", sense=LpMaximize)
+    prob = LpProblem(name="OptimalCongress", sense=LpMaximize)
 
     # define decision variables (binary vector of same length as events)
     lp_vars = [
@@ -51,11 +52,10 @@ def optimize_schedule(
                     f"overlap_{str(event_i.id).replace("-", "_")}"
                     f"_{str(event_j.id).replace("-", "_")}"
                 )
-                print(f"Adding constraint: {constraint_name}")
                 prob += (lp_vars[i] + lp_vars[j] <= 1, constraint_name)
 
-    print("\nProblem:")
-    print(prob)
+    logging.debug("\nProblem:")
+    logging.debug(prob)
 
     # solve problem
     prob.solve(PULP_CBC_CMD(msg=False))
@@ -65,19 +65,17 @@ def optimize_schedule(
     if not optimal:
         raise ValueError("No optimal solution found.")
 
-    print("solution:")
+    logging.debug("solution:")
     for var in prob.variables():
-        print(f"{var.name}: {var.varValue}")
+        logging.debug(f"{var.name}: {var.varValue}")
 
     # extract scheduled events
     scheduled_event_names: list[str] = [
         var.name for var in prob.variables() if var.varValue == 1
     ]
-    print(scheduled_event_names)
     scheduled_events: list[Event] = [
         event
         for event in events
         if event.slug.replace("-", "_") in scheduled_event_names
     ]
-    print(scheduled_events)
     return scheduled_events
