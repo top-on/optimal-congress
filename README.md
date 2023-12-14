@@ -1,6 +1,6 @@
 # Optimal Congress
 
-Find an optimal, personal schedule for the [37c3 congress](https://events.ccc.de/congress/2023/infos/).
+CLI to find an optimal, personal schedule for the [37c3 congress](https://events.ccc.de/congress/2023/infos/).
 
 ## Optimization logic
 

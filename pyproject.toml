@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "optimal-congress"
 version = "0.1.0"
-description = "Find an optimal, personal schedule for the 37c3 congress."
+description = "CLI to find an optimal, personal schedule for the 37c3 congress."
 homepage = "https://github.com/top-on/optimal-congress"
 authors = ["top-on <top-on@posteo.de>"]
 readme = "README.md"
