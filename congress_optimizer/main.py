@@ -38,6 +38,9 @@ def rate() -> None:
     enquire_and_save_ratings(events=unrated_events)
 
 
+# TODO: present all latest ratings in a list
+
+
 @app.command()
 def dump() -> None:
     """Ouput all latest ratings to CSV, for bulk editing.

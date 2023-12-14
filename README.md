@@ -4,7 +4,7 @@ Find an optimal, personal schedule for the 37c3.
 
 ## Roadmap
 
-- [ ] get all latest ratings
+- [ ] present all latest ratings as output in CLI
 - [ ] feed all rated events and their latest ratings into optimization
 - [ ] present optimiation results in CLI
 
