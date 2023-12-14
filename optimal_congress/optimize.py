@@ -4,7 +4,7 @@ import logging
 
 from pulp import PULP_CBC_CMD, LpMaximize, LpProblem, LpStatus, LpVariable
 
-from congress_optimizer.models import Event, Rating, events_overlap
+from optimal_congress.models import Event, Rating, events_overlap
 
 
 def optimize_schedule(

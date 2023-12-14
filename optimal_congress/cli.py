@@ -5,15 +5,15 @@ from time import sleep
 
 import typer
 
-from congress_optimizer.io.api import fetch_events, fetch_rooms
-from congress_optimizer.io.cache import (
+from optimal_congress.io.api import fetch_events, fetch_rooms
+from optimal_congress.io.cache import (
     load_events,
     load_ratings,
     save_events,
     save_rooms,
 )
-from congress_optimizer.optimize import optimize_schedule
-from congress_optimizer.ratings import (
+from optimal_congress.optimize import optimize_schedule
+from optimal_congress.ratings import (
     enquire_and_save_ratings,
     filter_latest_ratings,
     filter_unrated_events,

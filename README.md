@@ -1,9 +1,14 @@
 # Congress Optimizer
 
-Find an optimal, personal schedule for the 37c3.
+Find an optimal, personal schedule for the [37c3 congress](https://events.ccc.de/congress/2023/infos/).
+
+## Installation
+
+TODO
 
 ## Roadmap
 
+- rename to optimal-congress
 - write README
 - add MIT license
 - publish MVP

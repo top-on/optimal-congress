@@ -1,8 +1,8 @@
 """Functions related to ratings."""
 
 
-from congress_optimizer.config import DIR_RATINGS_CACHE
-from congress_optimizer.models import Event, Rating
+from optimal_congress.config import DIR_RATINGS_CACHE
+from optimal_congress.models import Event, Rating
 
 
 def filter_latest_ratings(ratings: list[Rating]) -> list[Rating]:

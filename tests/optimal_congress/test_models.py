@@ -6,7 +6,7 @@ from uuid import uuid4
 import pytest
 from pytz import timezone
 
-from congress_optimizer.models import Event, events_overlap
+from optimal_congress.models import Event, events_overlap
 
 TZ_DE = timezone("Europe/Berlin")
 

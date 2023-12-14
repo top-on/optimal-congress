@@ -4,8 +4,8 @@ import json
 
 import requests
 
-from congress_optimizer.config import API_EVENTS, API_ROOMS
-from congress_optimizer.models import Event, Room
+from optimal_congress.config import API_EVENTS, API_ROOMS
+from optimal_congress.models import Event, Room
 
 
 def fetch_events() -> list[Event]:

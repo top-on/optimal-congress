@@ -1,10 +1,10 @@
 [tool.poetry]
-name = "congress-optimizer"
+name = "optimal-congress"
 version = "0.1.0"
 description = "Optimizer for the 37c3 Fahrplan"
 authors = ["top-on <top-on@posteo.de>"]
 readme = "README.md"
-packages = [{ include = "congress_optimizer" }]
+packages = [{ include = "optimal_congress" }]
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -24,7 +24,7 @@ types-requests = "^2.31.0.10"
 types-pytz = "^2023.3.1.1"
 
 [tool.poetry.scripts]
-congress-optimizer = "congress_optimizer.main:app"
+optimal-congress = "optimal_congress.cli:app"
 
 [tool.mypy]
 ignore_missing_imports = true

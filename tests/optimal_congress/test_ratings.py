@@ -5,8 +5,8 @@ from uuid import uuid4
 
 import pytest
 
-from congress_optimizer.models import Rating
-from congress_optimizer.ratings import filter_latest_ratings
+from optimal_congress.models import Rating
+from optimal_congress.ratings import filter_latest_ratings
 
 UUID1 = uuid4()
 

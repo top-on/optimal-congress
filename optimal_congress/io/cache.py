@@ -3,12 +3,12 @@
 
 import json
 
-from congress_optimizer.config import (
+from optimal_congress.config import (
     DIR_EVENTS_CACHE,
     DIR_RATINGS_CACHE,
     DIR_ROOMS_CACHE,
 )
-from congress_optimizer.models import Event, Rating, Room
+from optimal_congress.models import Event, Rating, Room
 
 
 def save_events(events: list[Event]) -> None:

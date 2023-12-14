@@ -5,7 +5,7 @@ from uuid import UUID
 
 from pydantic import BaseModel, Field
 
-from congress_optimizer.config import HUB_EVENT_ROUTE
+from optimal_congress.config import HUB_EVENT_ROUTE
 
 
 class Room(BaseModel):

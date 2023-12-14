@@ -5,8 +5,8 @@ from uuid import uuid4
 
 from pytz import timezone
 
-from congress_optimizer.models import Event, Rating
-from congress_optimizer.optimize import optimize_schedule
+from optimal_congress.models import Event, Rating
+from optimal_congress.optimize import optimize_schedule
 
 TZ_DE = timezone("Europe/Berlin")
 
