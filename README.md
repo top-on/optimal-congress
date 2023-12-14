@@ -4,12 +4,11 @@ Find an optimal, personal schedule for the 37c3.
 
 ## Roadmap
 
-- [ ] present all latest ratings as output in CLI
-- [ ] feed all rated events and their latest ratings into optimization
-- [ ] present optimiation results in CLI
+- write README
+- add MIT license
+- publish MVP
 
-- [ ] dump all latest ratings to CSV
-- [ ] load ratings from CSV
+- when fetching new events and rooms, report on what's new and what's deleted
 
-- [ ] add MIT license
-- [ ] publish MVP
+- dump all latest ratings to CSV
+- load ratings from CSV
