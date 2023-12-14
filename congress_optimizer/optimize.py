@@ -7,20 +7,21 @@ from congress_optimizer.models import Event, Rating, events_overlap
 
 
 def optimize_schedule(
-    events: list[Event],
-    ratings: list[Rating],
+    events_ratings: list[tuple[Event, Rating]],
 ) -> list[Event]:
     """
     Optimize the schedule of events based on ratings.
 
     Args:
-        events: Events to be scheduled.
-        ratings: Ratings for each event. Order and length must match provided events.
+        events_ratings: Tuples of events and matching ratings.
     Returns:
         Scheduled events.
     Raises:
         ValueError: If no optimal solution is found.
     """
+    # unpack events and ratings
+    events, ratings = zip(*events_ratings)
+
     # sanity check
     assert len(events) == len(ratings)
 
@@ -46,10 +47,15 @@ def optimize_schedule(
                 # avoid double counting, and comparing event to itself
                 continue
             if events_overlap(event_i, event_j):
-                prob += (
-                    lp_vars[i] + lp_vars[j] <= 1,
-                    f"overlap_{event_i.name}_{event_j.name}",
+                constraint_name = (
+                    f"overlap_{str(event_i.id).replace("-", "_")}"
+                    f"_{str(event_j.id).replace("-", "_")}"
                 )
+                print(f"Adding constraint: {constraint_name}")
+                prob += (lp_vars[i] + lp_vars[j] <= 1, constraint_name)
+
+    print("\nProblem:")
+    print(prob)
 
     # solve problem
     prob.solve(PULP_CBC_CMD(msg=False))
@@ -59,11 +65,19 @@ def optimize_schedule(
     if not optimal:
         raise ValueError("No optimal solution found.")
 
+    print("solution:")
+    for var in prob.variables():
+        print(f"{var.name}: {var.varValue}")
+
     # extract scheduled events
     scheduled_event_names: list[str] = [
         var.name for var in prob.variables() if var.varValue == 1
     ]
+    print(scheduled_event_names)
     scheduled_events: list[Event] = [
-        event for event in events if event.slug in scheduled_event_names
+        event
+        for event in events
+        if event.slug.replace("-", "_") in scheduled_event_names
     ]
+    print(scheduled_events)
     return scheduled_events
