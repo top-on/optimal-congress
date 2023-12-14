@@ -5,5 +5,10 @@
 # ide
 .vscode
 
+# cache folders of tools
+.mypy_cache
+.ruff_cache
+.pytest_cache
+
 # data folder
 /data
