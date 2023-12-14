@@ -17,6 +17,14 @@ from congress_optimizer.ratings import (
 app = typer.Typer(add_completion=False)
 
 
+@app.callback()
+def users_callback(verbose: bool = typer.Option(False, "-v", "--verbose")) -> None:
+    """Optimize your personal schedule for the 37c3."""
+    # set log level
+    log_level = logging.DEBUG if verbose else logging.WARNING
+    logging.basicConfig(level=log_level, format="%(message)s")
+
+
 @app.command()
 def fetch() -> None:
     """Fetch events and rooms from API, and update local cache."""
@@ -70,13 +78,6 @@ def ratings() -> None:
     print("Latest ratings:")
     for rating, event in rating_event:
         print(f"- Rating: {rating.score} - {event.name[:50]:.<52}{event.url}")
-
-
-@app.callback()
-def users_callback(verbose: bool = typer.Option(False, "-v", "--verbose")) -> None:
-    # set log level
-    log_level = logging.DEBUG if verbose else logging.WARNING
-    logging.basicConfig(level=log_level, format="%(message)s")
 
 
 @app.command()
