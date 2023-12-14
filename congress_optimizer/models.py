@@ -42,6 +42,14 @@ class Event(BaseModel):
         return f"{HUB_EVENT_ROUTE}/{self.slug}"
 
 
+def events_overlap(event1: Event, event2: Event) -> bool:
+    """Check if two events overlap."""
+    return (
+        event1.schedule_start < event2.schedule_end
+        and event2.schedule_start < event1.schedule_end
+    )
+
+
 class Rating(BaseModel):
     """A rating for an event."""
 
