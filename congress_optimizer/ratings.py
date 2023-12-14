@@ -23,12 +23,30 @@ def load_ratings() -> list[Rating]:
     return ratings
 
 
+def filter_latest_ratings(ratings: list[Rating]) -> list[Rating]:
+    """Return the latest rating for each event.
+
+    Args:
+        ratings: List of ratings.
+    Returns:
+        List of latest ratings.
+    """
+    # sort ratings by timestamp, descending
+    ratings = sorted(ratings, key=lambda rating: rating.timestamp, reverse=True)
+
+    # keep only latest rating for each event
+    latest_ratings: list[Rating] = []
+    for rating in ratings:
+        if rating.event_id not in [r.event_id for r in latest_ratings]:
+            latest_ratings.append(rating)
+    return latest_ratings
+
+
 def filter_unrated_events(
     events: list[Event],
     ratings: list[Rating],
 ) -> list[Event]:
-    """
-    Filters the unrated events from a list of events based on previous ratings.
+    """Return the unrated events from a list of events based on previous ratings.
 
     Args:
         events: list of events.
