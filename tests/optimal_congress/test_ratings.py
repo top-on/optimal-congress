@@ -15,7 +15,7 @@ UUID1 = uuid4()
     "ratings, latest_ratings",
     [
         # empty input -> empty output
-        ([], []),
+        (set(), set()),
         # only one rating -> returns that rating
         (
             {Rating(event_id=UUID1, score=8, timestamp=datetime(2023, 1, 1))},
