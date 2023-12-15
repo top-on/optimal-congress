@@ -87,6 +87,7 @@ def rate() -> None:
         exit()
 
     enquire_and_save_ratings(events=unrated_events)
+    print("Done.")
 
 
 @app.command()
