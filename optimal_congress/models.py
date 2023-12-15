@@ -15,6 +15,9 @@ class Room(BaseModel):
     name: str
     assembly: str
 
+    class Config:
+        frozen = True  # instances immutable and hashable
+
 
 class Event(BaseModel):
     """An event."""
@@ -28,6 +31,9 @@ class Event(BaseModel):
     description: str
     schedule_start: datetime
     schedule_end: datetime
+
+    class Config:
+        frozen = True  # instances immutable and hashable
 
     def __str__(self) -> str:
         """Return a string representation of the event."""

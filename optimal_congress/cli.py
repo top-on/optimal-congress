@@ -1,5 +1,5 @@
 """Main entry point for the 37c3 schedule optimizer."""
-
+# %%
 import logging
 from time import sleep
 
@@ -36,16 +36,36 @@ def fetch() -> None:
 
     # fetch from API
     print("Fetching events and rooms from API...")
-    events = fetch_events()
-    rooms = fetch_rooms()
+    events_api = fetch_events()
+    rooms_api = fetch_rooms()
 
     # print summary
-    print(f"Found {len(events)} events and {len(rooms)} rooms at API.")
+    print(f"Fetched {len(events_api)} events and {len(rooms_api)} rooms from API.")
+
+    print("\nComparing API with cache...")
+    events_cache = set(load_events())  # OPTIONAL: make function return set
+
+    # check for changes
+    new_events = events_api - events_cache
+    removed_events = events_cache - events_api
+    # report changes
+    print(
+        f"Found {len(new_events)} new events, and {len(removed_events)} removed events."
+    )
+    if new_events:
+        print("New events:")
+        for event in new_events:
+            print(f"- {event.name[:50]:.<52}{event.url}")
+    if removed_events:
+        print("Removed events:")
+        for event in removed_events:
+            print(f"- {event.name[:50]:.<52}{event.url}")
 
     # save to cache
-    print("Saving events and rooms to cache...")
-    save_events(events)
-    save_rooms(rooms)
+    print("\nUpdating cache...")
+    save_events(list(events_api))
+    save_rooms(list(rooms_api))
+    print("Done.")
 
 
 @app.command()
@@ -166,5 +186,6 @@ def load() -> None:
     print("To be implemented.")
 
 
+# %%
 if __name__ == "__main__":
     app()
