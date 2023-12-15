@@ -63,9 +63,11 @@ def save_rating(rating: Rating) -> None:
         f.write(rating.model_dump_json())
 
 
-def load_events() -> set[Event]:
+def load_events(exit_if_empty: bool) -> set[Event]:
     """Load events from disk.
 
+    Args:
+        exit_if_empty: Exit if no events are found, and give instructions.
     Returns:
         List of events.
     """
@@ -75,6 +77,11 @@ def load_events() -> set[Event]:
     # load events
     events_files = list(DIR_EVENTS_CACHE.glob("*.json"))
     events = {Event(**json.loads(open(file).read())) for file in events_files}
+
+    # warn if no events are found
+    if exit_if_empty and len(events) == 0:
+        print("\nNo events found! Run `fetch` command to load events from API.")
+        exit()
     return events
 
 
@@ -93,9 +100,11 @@ def load_rooms() -> set[Room]:
     return rooms
 
 
-def load_ratings() -> set[Rating]:
+def load_ratings(exit_if_empty: bool) -> set[Rating]:
     """Load all ratings from disk.
 
+    Args:
+        exit_if_empty: Exit if no events are found, and give instructions.
     Returns:
         List of ratings.
     """
@@ -105,4 +114,9 @@ def load_ratings() -> set[Rating]:
     # load ratings
     ratings_files = list(DIR_RATINGS_CACHE.glob("*.json"))
     ratings = {Rating(**json.loads(open(file).read())) for file in ratings_files}
+
+    # warn if no events are found
+    if exit_if_empty and len(ratings) == 0:
+        print("\nNo ratings found! Run `rate` command to rate events.")
+        exit()
     return ratings

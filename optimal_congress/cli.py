@@ -1,7 +1,6 @@
 """Main entry point for the 37c3 schedule optimizer."""
 # %%
 import logging
-from time import sleep
 
 import typer
 
@@ -43,7 +42,7 @@ def fetch() -> None:
     print(f"Fetched {len(events_api)} events and {len(rooms_api)} rooms from API.")
 
     print("\nComparing API with cache...")
-    events_cache = load_events()
+    events_cache = load_events(exit_if_empty=False)
 
     # check for changes
     new_events = events_api - events_cache
@@ -73,14 +72,10 @@ def rate() -> None:
     """Interactively rate those events that have not been rated yet."""
 
     print("loading events and ratings from cache...")
-    events = load_events()
-    ratings = load_ratings()
-    if len(events) == 0:
-        print("\nNo events found! Run `fetch` operation to load events from API.")
-        exit()
+    events = load_events(exit_if_empty=True)
+    ratings = load_ratings(exit_if_empty=False)
 
     print(f"\nFound {len(events)} events and {len(ratings)} ratings.")
-    sleep(1)
 
     unrated_events = filter_unrated_events(
         events=events,
@@ -98,14 +93,8 @@ def ratings() -> None:
     """List all latest ratings."""
 
     print("loading events and ratings from cache...")
-    events = load_events()
-    ratings = load_ratings()
-    if len(events) == 0:
-        print("\nNo events found! Run `fetch` operation to load events from API.")
-        exit()
-    if len(ratings) == 0:
-        print("\nNo ratings found! Run `rate` operation to rate events.")
-        exit()
+    events = load_events(exit_if_empty=True)
+    ratings = load_ratings(exit_if_empty=True)
 
     latest_ratings = filter_latest_ratings(ratings)
     ratings_sorted = sorted(
@@ -129,16 +118,8 @@ def optimize() -> None:
     """Optimize the schedule based on ratings."""
 
     print("loading events and ratings from cache...")
-    ratings = load_ratings()
-    events = load_events()
-    if len(ratings) == 0 or len(events) == 0:
-        print(
-            "\nNo ratings or events found! Do the following:"
-            "\n1. Run `fetch` operation to load events from API."
-            "\n2. Run `rate` operation to rate events."
-            "\n3. Run `ratings` operation to check your ratings."
-        )
-        exit()
+    ratings = load_ratings(exit_if_empty=True)
+    events = load_events(exit_if_empty=True)
 
     latest_ratings = filter_latest_ratings(ratings)
 
