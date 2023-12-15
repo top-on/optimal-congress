@@ -21,6 +21,7 @@ pip install optimal-congress
 
 ```bash
 $ optimal-congress fetch
+
 Fetching events and rooms from API...
 Fetched 49 events and 58 rooms from API.
 
@@ -36,10 +37,17 @@ Done.
 ```bash
 $ optimal-congress rate
 
-loading events and ratings from cache...
+Unrated event (1/65):
 
-Found 47 events and 47 ratings.
-No new events to rate. Exiting.
+2023-12-28 20:15 - 20:55
+
+Lützerath Lebt! Einblicke in den Widerstand
+
+You can't evict a movement! Der Energiekonzern RWE wird noch Jahre brauchen, die Kohle unter Lützi abzubaggern: Der Kampf gegen die Kohle und für Klimagerechtigkeit geht weiter!
+
+https://events.ccc.de/congress/2023/hub/en/event/lutzerath_lebt_einblicke_in_den_widerstand
+
+Rate from 0 to 10 (Enter to exit):
 ```
 
 3. Review you current ratings:
