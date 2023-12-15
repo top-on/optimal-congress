@@ -97,19 +97,21 @@ def ratings() -> None:
     ratings = load_ratings(exit_if_empty=True)
 
     latest_ratings = filter_latest_ratings(ratings)
-    ratings_sorted = sorted(
-        latest_ratings, key=lambda rating: rating.score, reverse=True
-    )
 
     # join ratings with events
     rating_event = [
         (rating, [event for event in events if event.id == rating.event_id][0])
-        for rating in ratings_sorted
+        for rating in latest_ratings
     ]
 
-    # print ratings for each event
+    # print descenting ratings
+    rating_event_sorted = sorted(
+        rating_event,
+        key=lambda x: x[0].score,
+        reverse=True,
+    )
     print("\nLatest ratings:")
-    for rating, event in rating_event:
+    for rating, event in rating_event_sorted:
         print(f"- Rating: {rating.score} - {event.name[:50]:.<52}{event.url}")
 
 
