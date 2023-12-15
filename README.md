@@ -19,7 +19,7 @@ pip install optimal-congress
 
 1. Fetch events and rooms from congress API:
 
-```bash
+```
 $ optimal-congress fetch
 
 Fetching events and rooms from API...
@@ -34,7 +34,7 @@ Done.
 
 2. Interactively rate events, if not already rated:
 
-```bash
+```
 $ optimal-congress rate
 
 Unrated event (1/65):
@@ -52,7 +52,7 @@ Rate from 0 to 10 (Enter to exit):
 
 3. Review you current ratings:
 
-```bash
+```
 $ optimal-congress ratings
 
 loading events and ratings from cache...
@@ -64,7 +64,7 @@ Latest ratings:
 
 4. Optimize your personal schedule:
 
-```bash
+```
 $ optimal-congress optimize
 
 loading events and ratings from cache...
