@@ -91,7 +91,8 @@ def join_events_with_ratings(
     # join events with ratings
     event_ratings: set[EventRating] = set()
     for rating in ratings:
-        if events:
+        matching_events = {event for event in events if event.id == rating.event_id}
+        if matching_events:
             event = {event for event in events if event.id == rating.event_id}.pop()
             event_ratings.add(EventRating(event=event, rating=rating))
 

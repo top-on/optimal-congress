@@ -7,7 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [unreleased]
 ### Changed
-- output more information relevant for rating
+- when rating, show more relevant information
+### Fixed
+- fix optimization when rating has no corresponding event
 
 ## [0.2.0] - 2023-12-15
 ### Added
