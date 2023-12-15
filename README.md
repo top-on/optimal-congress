@@ -17,7 +17,7 @@ pip install optimal-congress
 
 ## Example Workflow
 
-1. Fetch events and room from congress API:
+1. Fetch events and rooms from congress API:
 
 ```bash
 $ optimal-congress fetch
@@ -39,7 +39,19 @@ Found 47 events and 47 ratings.
 No new events to rate. Exiting.
 ```
 
-3. Optimize schedule.
+3. Review you current ratings:
+
+```bash
+$ optimal-congress ratings
+
+loading events and ratings from cache...
+
+Latest ratings:
+- Rating: 8.0 - Amateurfunk als Hilfe in Not- und Katastrophenfäll..https://events.ccc.de/congress/2023/hub/en/event/amateurfunk-als-hilfe-in-not-und-katastrophenfalle
+- Rating: 8.0 - InfraNodus: Reveal Non-Obvious and Find the Gaps w..https://events.ccc.de/congress/2023/hub/en/event/infranodus-reveal-non-obvious-and-find-the-gaps-wi
+```
+
+4. Optimize your personal schedule:
 
 ```bash
 $ optimal-congress optimize
@@ -53,8 +65,6 @@ Scheduled events:
 ```
 
 ## Roadmap
-
-- when fetching new events and rooms, report on what's new and what's deleted
 
 - dump all latest ratings to CSV
 - load ratings from CSV

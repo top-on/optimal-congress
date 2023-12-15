@@ -119,7 +119,7 @@ def ratings() -> None:
     ]
 
     # print ratings for each event
-    print("Latest ratings:")
+    print("\nLatest ratings:")
     for rating, event in rating_event:
         print(f"- Rating: {rating.score} - {event.name[:50]:.<52}{event.url}")
 
