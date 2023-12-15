@@ -97,9 +97,8 @@ def ratings() -> None:
     events = load_events(exit_if_empty=True)
     ratings = load_ratings(exit_if_empty=True)
 
+    # latest ratings with their events
     latest_ratings = filter_latest_ratings(ratings)
-
-    # join events with ratings
     event_ratings = join_events_with_ratings(
         ratings=latest_ratings,
         events=events,
@@ -127,9 +126,8 @@ def optimize() -> None:
     ratings = load_ratings(exit_if_empty=True)
     events = load_events(exit_if_empty=True)
 
+    # latest ratings with their events
     latest_ratings = filter_latest_ratings(ratings)
-
-    # join events with ratings
     event_ratings = join_events_with_ratings(
         ratings=latest_ratings,
         events=events,
