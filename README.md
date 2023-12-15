@@ -21,11 +21,14 @@ pip install optimal-congress
 
 ```bash
 $ optimal-congress fetch
-
 Fetching events and rooms from API...
+Fetched 49 events and 58 rooms from API.
 
-Found 47 events and 57 rooms at API.
-Saving events and rooms to cache...
+Comparing API with cache...
+Found 0 new events, and 0 removed events.
+
+Updating cache...
+Done.
 ```
 
 2. Interactively rate events, if not already rated:
