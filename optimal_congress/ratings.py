@@ -2,7 +2,7 @@
 
 
 from optimal_congress.config import DIR_RATINGS_CACHE
-from optimal_congress.models import Event, Rating
+from optimal_congress.models import Event, EventRating, Rating
 
 
 def filter_latest_ratings(ratings: set[Rating]) -> set[Rating]:
@@ -62,3 +62,27 @@ def enquire_and_save_ratings(events: set[Event]) -> None:
         with open(DIR_RATINGS_CACHE / f"rating_{event.id}.json", "w") as f:
             print(f"Saving rating '{rating.score}' for event '{event.name}'...")
             f.write(rating.model_dump_json())
+
+
+def join_events_with_ratings(
+    ratings: set[Rating],
+    events: set[Event],
+) -> set[EventRating]:
+    """Inner-Join events with ratings.
+
+    Note that duplicated ratings are not removed, if they are provided as input.
+
+    Args:
+        events: Set of events.
+        ratings: Set of ratings.
+    Returns:
+        Ratings with their associated Events.
+    """
+    # join events with ratings
+    event_ratings: set[EventRating] = set()
+    for rating in ratings:
+        if events:
+            event = {event for event in events if event.id == rating.event_id}.pop()
+            event_ratings.add(EventRating(event=event, rating=rating))
+
+    return event_ratings

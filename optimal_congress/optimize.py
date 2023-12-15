@@ -4,11 +4,11 @@ import logging
 
 from pulp import PULP_CBC_CMD, LpMaximize, LpProblem, LpStatus, LpVariable
 
-from optimal_congress.models import Event, Rating, events_overlap
+from optimal_congress.models import Event, EventRating, events_overlap
 
 
 def optimize_schedule(
-    events_ratings: list[tuple[Event, Rating]],
+    event_ratings: set[EventRating],
 ) -> set[Event]:
     """
     Optimize the schedule of events based on ratings.
@@ -21,7 +21,8 @@ def optimize_schedule(
         ValueError: If no optimal solution is found.
     """
     # unpack events and ratings
-    events, ratings = zip(*events_ratings)
+    events = [event_rating.event for event_rating in event_ratings]
+    ratings = [event_rating.rating for event_rating in event_ratings]
 
     # sanity check
     assert len(events) == len(ratings)

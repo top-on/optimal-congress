@@ -65,3 +65,13 @@ class Rating(BaseModel):
 
     class Config:
         frozen = True  # instances immutable and hashable
+
+
+class EventRating(BaseModel):
+    """A container class for a rating and its associated event."""
+
+    event: Event
+    rating: Rating
+
+    class Config:
+        frozen = True  # instances immutable and hashable

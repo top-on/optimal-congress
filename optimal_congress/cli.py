@@ -16,6 +16,7 @@ from optimal_congress.ratings import (
     enquire_and_save_ratings,
     filter_latest_ratings,
     filter_unrated_events,
+    join_events_with_ratings,
 )
 
 app = typer.Typer(add_completion=False)
@@ -98,21 +99,24 @@ def ratings() -> None:
 
     latest_ratings = filter_latest_ratings(ratings)
 
-    # join ratings with events
-    rating_event = [
-        (rating, [event for event in events if event.id == rating.event_id][0])
-        for rating in latest_ratings
-    ]
+    # join events with ratings
+    event_ratings = join_events_with_ratings(
+        ratings=latest_ratings,
+        events=events,
+    )
 
     # print descenting ratings
-    rating_event_sorted = sorted(
-        rating_event,
-        key=lambda x: x[0].score,
+    event_ratings_sorted = sorted(
+        list(event_ratings),
+        key=lambda x: x.rating.score,
         reverse=True,
     )
     print("\nLatest ratings:")
-    for rating, event in rating_event_sorted:
-        print(f"- Rating: {rating.score} - {event.name[:50]:.<52}{event.url}")
+    for event_rating in event_ratings_sorted:
+        print(
+            f"- Rating: {event_rating.rating.score} "
+            f"- {event_rating.event.name[:50]:.<52}{event_rating.event.url}"
+        )
 
 
 @app.command()
@@ -125,14 +129,14 @@ def optimize() -> None:
 
     latest_ratings = filter_latest_ratings(ratings)
 
-    # join ratings with events
-    events_ratings = [
-        ([event for event in events if event.id == rating.event_id][0], rating)
-        for rating in latest_ratings
-    ]
+    # join events with ratings
+    event_ratings = join_events_with_ratings(
+        ratings=latest_ratings,
+        events=events,
+    )
 
     # optimize schedule
-    scheduled_events = optimize_schedule(events_ratings=events_ratings)
+    scheduled_events = optimize_schedule(event_ratings=event_ratings)
 
     events_sorted = sorted(
         scheduled_events, key=lambda event: event.schedule_start, reverse=False
