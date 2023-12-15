@@ -5,7 +5,7 @@ from optimal_congress.config import DIR_RATINGS_CACHE
 from optimal_congress.models import Event, Rating
 
 
-def filter_latest_ratings(ratings: list[Rating]) -> list[Rating]:
+def filter_latest_ratings(ratings: set[Rating]) -> set[Rating]:
     """Return the latest rating for each event.
 
     Args:
@@ -14,20 +14,22 @@ def filter_latest_ratings(ratings: list[Rating]) -> list[Rating]:
         List of latest ratings.
     """
     # sort ratings by timestamp, descending
-    ratings = sorted(ratings, key=lambda rating: rating.timestamp, reverse=True)
+    ratings_sorted = sorted(
+        list(ratings), key=lambda rating: rating.timestamp, reverse=True
+    )
 
     # keep only latest rating for each event
-    latest_ratings: list[Rating] = []
-    for rating in ratings:
+    latest_ratings: set[Rating] = set()
+    for rating in ratings_sorted:
         if rating.event_id not in [r.event_id for r in latest_ratings]:
-            latest_ratings.append(rating)
+            latest_ratings.add(rating)
     return latest_ratings
 
 
 def filter_unrated_events(
-    events: list[Event],
-    ratings: list[Rating],
-) -> list[Event]:
+    events: set[Event],
+    ratings: set[Rating],
+) -> set[Event]:
     """Return the unrated events from a list of events based on previous ratings.
 
     Args:
@@ -36,12 +38,12 @@ def filter_unrated_events(
     Returns:
         List of events for which no rating is provided.
     """
-    rated_event_ids = [rating.event_id for rating in ratings]
-    unrated_events = [event for event in events if event.id not in rated_event_ids]
+    rated_event_ids = {rating.event_id for rating in ratings}
+    unrated_events = {event for event in events if event.id not in rated_event_ids}
     return unrated_events
 
 
-def enquire_and_save_ratings(events: list[Event]) -> None:
+def enquire_and_save_ratings(events: set[Event]) -> None:
     """Enquire and save ratings for a list of events."""
 
     for i, event in enumerate(events):

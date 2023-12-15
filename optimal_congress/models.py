@@ -62,3 +62,6 @@ class Rating(BaseModel):
     event_id: UUID
     score: float = Field(description="A positive number describing utility to attend.")
     timestamp: datetime = Field(default_factory=datetime.now)
+
+    class Config:
+        frozen = True  # instances immutable and hashable

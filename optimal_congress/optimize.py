@@ -9,7 +9,7 @@ from optimal_congress.models import Event, Rating, events_overlap
 
 def optimize_schedule(
     events_ratings: list[tuple[Event, Rating]],
-) -> list[Event]:
+) -> set[Event]:
     """
     Optimize the schedule of events based on ratings.
 
@@ -70,12 +70,12 @@ def optimize_schedule(
         logging.debug(f"{var.name}: {var.varValue}")
 
     # extract scheduled events
-    scheduled_event_names: list[str] = [
+    scheduled_event_names: set[str] = {
         var.name for var in prob.variables() if var.varValue == 1
-    ]
-    scheduled_events: list[Event] = [
+    }
+    scheduled_events: set[Event] = {
         event
         for event in events
         if event.slug.replace("-", "_") in scheduled_event_names
-    ]
+    }
     return scheduled_events

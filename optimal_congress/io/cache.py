@@ -11,7 +11,7 @@ from optimal_congress.config import (
 from optimal_congress.models import Event, Rating, Room
 
 
-def save_events(events: list[Event]) -> None:
+def save_events(events: set[Event]) -> None:
     """Save events to cache.
 
     Note: This function overwrites all cached events.
@@ -29,7 +29,7 @@ def save_events(events: list[Event]) -> None:
             f.write(event.model_dump_json())
 
 
-def save_rooms(rooms: list[Room]) -> None:
+def save_rooms(rooms: set[Room]) -> None:
     """Save rooms to cache.
 
     Note: This function overwrites all cached rooms.
@@ -63,7 +63,7 @@ def save_rating(rating: Rating) -> None:
         f.write(rating.model_dump_json())
 
 
-def load_events() -> list[Event]:
+def load_events() -> set[Event]:
     """Load events from disk.
 
     Returns:
@@ -74,11 +74,11 @@ def load_events() -> list[Event]:
 
     # load events
     events_files = list(DIR_EVENTS_CACHE.glob("*.json"))
-    events = [Event(**json.loads(open(file).read())) for file in events_files]
+    events = {Event(**json.loads(open(file).read())) for file in events_files}
     return events
 
 
-def load_rooms() -> list[Room]:
+def load_rooms() -> set[Room]:
     """Load rooms from disk.
 
     Returns:
@@ -89,11 +89,11 @@ def load_rooms() -> list[Room]:
 
     # load rooms
     rooms_files = list(DIR_ROOMS_CACHE.glob("*.json"))
-    rooms = [Room(**json.loads(open(file).read())) for file in rooms_files]
+    rooms = {Room(**json.loads(open(file).read())) for file in rooms_files}
     return rooms
 
 
-def load_ratings() -> list[Rating]:
+def load_ratings() -> set[Rating]:
     """Load all ratings from disk.
 
     Returns:
@@ -104,5 +104,5 @@ def load_ratings() -> list[Rating]:
 
     # load ratings
     ratings_files = list(DIR_RATINGS_CACHE.glob("*.json"))
-    ratings = [Rating(**json.loads(open(file).read())) for file in ratings_files]
+    ratings = {Rating(**json.loads(open(file).read())) for file in ratings_files}
     return ratings

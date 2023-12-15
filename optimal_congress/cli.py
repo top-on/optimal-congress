@@ -43,7 +43,7 @@ def fetch() -> None:
     print(f"Fetched {len(events_api)} events and {len(rooms_api)} rooms from API.")
 
     print("\nComparing API with cache...")
-    events_cache = set(load_events())  # OPTIONAL: make function return set
+    events_cache = load_events()
 
     # check for changes
     new_events = events_api - events_cache
@@ -63,8 +63,8 @@ def fetch() -> None:
 
     # save to cache
     print("\nUpdating cache...")
-    save_events(list(events_api))
-    save_rooms(list(rooms_api))
+    save_events(events_api)
+    save_rooms(rooms_api)
     print("Done.")
 
 
