@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [unreleased]
 ## Added
 - dryrun option for fetch command
+## Fixed
+- update URLs to API endpoints
 
 ## [0.3.0] - 2023-12-15
 ### Changed
