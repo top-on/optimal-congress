@@ -31,7 +31,11 @@ def users_callback(verbose: bool = typer.Option(False, "-v", "--verbose")) -> No
 
 
 @app.command()
-def fetch() -> None:
+def fetch(
+    dry: bool = typer.Option(
+        default=False, help="At dryrun, local cache is not changed."
+    ),
+) -> None:
     """Fetch events and rooms from API, and update local cache."""
 
     # fetch from API
@@ -53,15 +57,18 @@ def fetch() -> None:
         f"Found {len(new_events)} new events, and {len(removed_events)} removed events."
     )
     if new_events:
-        print("New events:")
+        print("\nNew events:")
         for event in new_events:
             print(f"- {event.name[:50]:.<52}{event.url}")
     if removed_events:
-        print("Removed events:")
+        print("\nRemoved events:")
         for event in removed_events:
             print(f"- {event.name[:50]:.<52}{event.url}")
 
-    # save to cache
+    # save to cache, if not dryrun
+    if dry:
+        print("\nDryrun, not updating cache.")
+        exit()
     print("\nUpdating cache...")
     save_events(events_api)
     save_rooms(rooms_api)
