@@ -127,7 +127,14 @@ def ratings() -> None:
 
 
 @app.command()
-def optimize() -> None:
+def optimize(
+    minimum_rating: float = typer.Option(
+        0.0,
+        "-m",
+        "--min",
+        help="Minimum rating required for talk to be considered in optimization.",
+    ),
+) -> None:
     """Optimize the schedule based on ratings."""
 
     print("loading events and ratings from cache...")
@@ -141,8 +148,15 @@ def optimize() -> None:
         events=events,
     )
 
+    # filter events by minimum required rating
+    event_ratings_filtered = {
+        event_rating
+        for event_rating in event_ratings
+        if event_rating.rating.score >= minimum_rating
+    }
+
     # optimize schedule
-    scheduled_events = optimize_schedule(event_ratings=event_ratings)
+    scheduled_events = optimize_schedule(event_ratings=event_ratings_filtered)
 
     events_sorted = sorted(
         scheduled_events, key=lambda event: event.schedule_start, reverse=False

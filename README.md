@@ -77,8 +77,6 @@ Scheduled events:
 
 ## Roadmap
 
-- add command option to require minimum rating for talks to be included in optimization
-
 - dump all latest ratings to CSV
 - load ratings from CSV
 

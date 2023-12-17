@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [unreleased]
 ## Added
 - dryrun option for fetch command
+- option to require minimum rating for talks to be included in optimization
 ## Fixed
 - update URLs to API endpoints
 
