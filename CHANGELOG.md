@@ -5,11 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [unreleased]
+### Added
+- export and import ratings to/from to CSV
+- -h flag can also be used for --help
+
 ## [0.4.0] - 2023-12-17
-## Added
+### Added
 - dryrun option for fetch command
 - option to require minimum rating for talks to be included in optimization
-## Fixed
+### Fixed
 - update URLs to API endpoints
 
 ## [0.3.0] - 2023-12-15

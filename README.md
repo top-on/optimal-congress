@@ -79,7 +79,4 @@ Scheduled events:
 
 - at fetching, show 'new' and 'removed' based on UUID, perhaps also list 'changed'
 
-- dump all latest ratings to CSV
-- load ratings from CSV
-
 - test export of schedule to iOS app via QR code

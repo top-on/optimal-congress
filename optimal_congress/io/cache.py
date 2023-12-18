@@ -47,6 +47,24 @@ def save_rooms(rooms: set[Room]) -> None:
             f.write(room.model_dump_json())
 
 
+def save_ratings(ratings: set[Rating]) -> None:
+    """Save ratings to cache.
+
+    Note: This does not replace cached rating for the same event.
+    """
+    # create ratings directory if it doesn't exist
+    DIR_RATINGS_CACHE.mkdir(parents=True, exist_ok=True)
+
+    # save ratings
+    for rating in ratings:
+        with open(
+            DIR_RATINGS_CACHE / f"rating_{rating.event_id}_{rating.timestamp}.json",
+            "w",
+        ) as f:
+            f.write(rating.model_dump_json())
+
+
+# OPTIONAL: replace by save_ratings
 def save_rating(rating: Rating) -> None:
     """Save an individual rating to cache.
 

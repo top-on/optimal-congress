@@ -3,6 +3,7 @@
 from datetime import datetime
 from uuid import UUID
 
+import pandera as pa
 from pydantic import BaseModel, Field
 
 from optimal_congress.config import HUB_EVENT_ROUTE
@@ -75,3 +76,12 @@ class EventRating(BaseModel):
 
     class Config:
         frozen = True  # instances immutable and hashable
+
+
+class RatingsExport(pa.typing.DataFrame):
+    """A schema for exporting and importing ratings to/from CSV."""
+
+    score: float = pa.Field()
+    name: str = pa.Field()
+    url: str = pa.Field()
+    id: UUID = pa.Field()

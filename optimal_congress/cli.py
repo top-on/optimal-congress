@@ -1,16 +1,21 @@
 """Main entry point for the 37c3 schedule optimizer."""
 # %%
 import logging
+from pathlib import Path
 
+import pandas as pd
 import typer
+from typing_extensions import Annotated
 
 from optimal_congress.io.api import fetch_events, fetch_rooms
 from optimal_congress.io.cache import (
     load_events,
     load_ratings,
     save_events,
+    save_ratings,
     save_rooms,
 )
+from optimal_congress.models import Rating, RatingsExport
 from optimal_congress.optimize import optimize_schedule
 from optimal_congress.ratings import (
     enquire_and_save_ratings,
@@ -25,6 +30,7 @@ app = typer.Typer(
 )
 
 
+# %%
 @app.callback()
 def users_callback(verbose: bool = typer.Option(False, "-v", "--verbose")) -> None:
     """Optimize your personal schedule for the 37c3."""
@@ -174,26 +180,100 @@ def optimize(
 
 
 @app.command()
-def dump() -> None:
+def dump(
+    file_path: Annotated[
+        str,
+        typer.Argument(
+            help="Relative or absolute path to which CSV file will be exported.",
+        ),
+    ],
+) -> None:
     """Export all latest ratings to CSV, for bulk editing.
 
     This will exports the latest rating for each rated event.
     """
+    # convert argument to absolute path
+    path = Path(file_path)
+    absolute_path = path if path.is_absolute() else Path.cwd() / path
 
-    print("To be implemented.")
+    # load events and ratings
+    print("loading events and ratings from cache...")
+    events = load_events(exit_if_empty=True)
+    ratings = load_ratings(exit_if_empty=True)
+
+    # latest ratings with their events
+    latest_ratings = filter_latest_ratings(ratings)
+    event_ratings = join_events_with_ratings(
+        ratings=latest_ratings,
+        events=events,
+    )
+
+    # export to CSV
+    print(f"Exporting {len(event_ratings)} ratings to {absolute_path}...")
+    ratings_df = RatingsExport(
+        pd.DataFrame(
+            data=[
+                [
+                    event_rating.rating.score,
+                    event_rating.event.name,
+                    event_rating.event.url,
+                    event_rating.event.id,
+                ]
+                for event_rating in event_ratings
+            ],
+            columns=["rating", "name", "url", "event_id"],
+        ).sort_values(by="rating", ascending=False)
+    )
+
+    ratings_df.to_csv(path_or_buf=absolute_path, index=False)
+    print("Done.")
 
 
 @app.command()
-def load() -> None:
+def load(
+    file_path: Annotated[
+        str,
+        typer.Argument(
+            help="Name and relative or absolute path from which to read in CSV.",
+        ),
+    ],
+    dry: bool = typer.Option(
+        default=False, help="At dryrun, local cache is not changed."
+    ),
+) -> None:
     """Bulk import ratings from CSV.
 
     This will overwrite existing ratings.
 
-    CSV format: <event_id>,<score> (e.g. 123e4567-e89b-12d3-a456-426614174000,8.5)
-    Additional column will be ignored.
+    CSV format should be the same one as what the `dump` command exports.
     """
+    # convert argument to absolute path
+    path = Path(file_path)
+    absolute_path = path if path.is_absolute() else Path.cwd() / path
 
-    print("To be implemented.")
+    # load ratings from CSV
+    ratings_df = RatingsExport(
+        pd.read_csv(filepath_or_buffer=absolute_path, index_col=False)
+    )
+    if len(ratings_df) == 0:
+        print("No ratings found in CSV. Exiting.")
+        exit()
+
+    # convert to Rating objects
+    ratings = {
+        Rating(
+            event_id=row["event_id"],
+            score=row["rating"],
+        )
+        for _, row in ratings_df.iterrows()
+    }
+
+    # save ratings
+    if dry:
+        print("\nDryrun, not updating cache.")
+        exit()
+    print(f"Saving {len(ratings)} ratings to cache...")
+    save_ratings(ratings=ratings)
 
 
 # %%
