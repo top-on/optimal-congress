@@ -19,7 +19,10 @@ from optimal_congress.ratings import (
     join_events_with_ratings,
 )
 
-app = typer.Typer(add_completion=False)
+app = typer.Typer(
+    add_completion=False,
+    context_settings={"help_option_names": ["-h", "--help"]},
+)
 
 
 @app.callback()
