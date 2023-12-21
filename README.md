@@ -75,6 +75,15 @@ Scheduled events:
 ...
 ```
 
+## Testing
+
+Software testing uses `pytest`, relying upon `poetry` and `tox`.<br>
+To run all tests, across multiple python versions:
+
+```bash
+poetry run tox
+```
+
 ## Roadmap
 
 - at fetching, show 'new' and 'removed' based on UUID, perhaps also list 'changed'
