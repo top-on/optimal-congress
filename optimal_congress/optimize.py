@@ -49,10 +49,10 @@ def optimize_schedule(
                 # avoid double counting, and comparing event to itself
                 continue
             if events_overlap(event_i, event_j):
-                constraint_name = (
-                    f"overlap_{str(event_i.id).replace("-", "_")}"
-                    f"_{str(event_j.id).replace("-", "_")}"
-                )
+                # rename event names to make work with pulp
+                event_i_name = event_i.slug.replace("-", "_")
+                event_j_name = event_j.slug.replace("-", "_")
+                constraint_name = f"overlap_{event_i_name}_{event_j_name}"
                 prob += (lp_vars[i] + lp_vars[j] <= 1, constraint_name)
 
     logging.debug("\nProblem:")
