@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [unreleased]
 ### Changed
-- at fetching, show 'new' and 'removed' based on event's UUID (ignoring changed properties)
+- at fetching, list new/removed based on event's UUID (disregarding changed properties)
 
 ## [0.5.1] - 2023-12-21
 ### Fixed
