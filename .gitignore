@@ -10,5 +10,5 @@
 .ruff_cache
 .pytest_cache
 
-# data folder
-/data
+# exported data
+*.csv
