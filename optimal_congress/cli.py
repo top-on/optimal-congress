@@ -178,12 +178,13 @@ def optimize(
     for event in events_sorted:
         # get room name via event's room id
         room = next((room for room in rooms if room.id == event.room), None)
-        room_name = f" {room.name}" if room else ""
+        room_name = f"{room.name}" if room else ""
 
         start_time = event.schedule_start.strftime("%a %d %H:%M")
         end_time = event.schedule_end.strftime("%H:%M")
         print(
-            f"- {start_time}-{end_time}{room_name}: {event.name[:50]:.<53}{event.url}"
+            f"- {start_time}-{end_time} {room_name[:15]:.<16}"
+            f"{event.name[:40]:.<42}{event.url}"
         )
 
 
