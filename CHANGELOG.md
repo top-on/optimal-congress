@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [unreleased]
+### Changed
+- at fetching, show 'new' and 'removed' based on event's UUID (ignoring changed properties)
+
 ## [0.5.1] - 2023-12-21
 ### Fixed
 - make f-string syntax work also with python versions 3.10 and 3.11 (#1)

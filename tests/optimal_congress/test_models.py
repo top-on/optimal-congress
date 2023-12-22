@@ -99,3 +99,31 @@ def test_events_overlap(event1: Event, event2: Event, expected: bool):
 
     assert result1 == result2
     assert result1 == expected
+
+
+def test_event_hashing():
+    """Assure that events with same id are equal."""
+    event1 = Event(
+        id=uuid4(),
+        name="foo",
+        slug="foo",
+        track="foo",
+        assembly="foo",
+        room=None,
+        description="foo",
+        schedule_start=datetime(2023, 12, 27, 12, tzinfo=TZ_DE),
+        schedule_end=datetime(2023, 12, 27, 14, tzinfo=TZ_DE),
+    )
+    event2 = Event(
+        id=event1.id,
+        name="bar",
+        slug="bar",
+        track="bar",
+        assembly="bar",
+        room=None,
+        description="bar",
+        schedule_start=datetime(2023, 12, 27, 13, tzinfo=TZ_DE),
+        schedule_end=datetime(2023, 12, 27, 15, tzinfo=TZ_DE),
+    )
+
+    assert event1 == event2

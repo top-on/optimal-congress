@@ -33,8 +33,15 @@ class Event(BaseModel):
     schedule_start: datetime
     schedule_end: datetime
 
-    class Config:
-        frozen = True  # instances immutable and hashable
+    def __hash__(self) -> int:
+        """Events are equal, if they have same ID - regardless of other properties."""
+        return hash(self.id)
+
+    def __eq__(self, other: object) -> bool:
+        """Events are equal, if they have same ID - regardless of other properties."""
+        if not isinstance(other, Event):
+            return NotImplemented
+        return self.id == other.id
 
     def __str__(self) -> str:
         """Return a string representation of the event."""

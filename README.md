@@ -88,5 +88,4 @@ poetry run tox
 
 - with optimization result, also show location of events
 - new command 'upcoming', for next result. with 'minimum rating' as filter argument
-- at fetching, show 'new' and 'removed' based on UUID, perhaps also list 'changed'
 - test export of schedule to iOS app via QR code
