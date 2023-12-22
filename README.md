@@ -86,6 +86,5 @@ poetry run tox
 
 ## Roadmap
 
-- with optimization result, also show location of events
 - new command 'upcoming', for next result. with 'minimum rating' as filter argument
 - test export of schedule to iOS app via QR code

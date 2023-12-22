@@ -11,11 +11,12 @@ from optimal_congress.io.api import fetch_events, fetch_rooms
 from optimal_congress.io.cache import (
     load_events,
     load_ratings,
+    load_rooms,
     save_events,
     save_ratings,
     save_rooms,
 )
-from optimal_congress.models import Rating, RatingsExport
+from optimal_congress.models import Rating, RatingsExport, Room
 from optimal_congress.optimize import optimize_schedule
 from optimal_congress.ratings import (
     enquire_and_save_ratings,
@@ -146,9 +147,10 @@ def optimize(
 ) -> None:
     """Optimize the schedule based on ratings."""
 
-    print("loading events and ratings from cache...")
+    print("loading events, ratings, and rooms from cache...")
     ratings = load_ratings(exit_if_empty=True)
     events = load_events(exit_if_empty=True)
+    rooms: set[Room] = load_rooms(exit_if_empty=True)
 
     # latest ratings with their events
     latest_ratings = filter_latest_ratings(ratings)
@@ -174,9 +176,15 @@ def optimize(
     # print scheduled events
     print("Scheduled events:")
     for event in events_sorted:
+        # get room name via event's room id
+        room = next((room for room in rooms if room.id == event.room), None)
+        room_name = f" {room.name}" if room else ""
+
         start_time = event.schedule_start.strftime("%a %d %H:%M")
         end_time = event.schedule_end.strftime("%H:%M")
-        print(f"- {start_time}-{end_time}: {event.name[:50]:.<53}{event.url}")
+        print(
+            f"- {start_time}-{end_time}{room_name}: {event.name[:50]:.<53}{event.url}"
+        )
 
 
 @app.command()
