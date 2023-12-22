@@ -96,16 +96,18 @@ def load_events(exit_if_empty: bool) -> set[Event]:
     events_files = list(DIR_EVENTS_CACHE.glob("*.json"))
     events = {Event(**json.loads(open(file).read())) for file in events_files}
 
-    # warn if no events are found
+    # exit if no events are found
     if exit_if_empty and len(events) == 0:
         print("\nNo events found! Run `fetch` command to load events from API.")
         exit()
     return events
 
 
-def load_rooms() -> set[Room]:
+def load_rooms(exit_if_empty: bool) -> set[Room]:
     """Load rooms from disk.
 
+    Args:
+        exit_if_empty: Exit if no events are found, and give instructions.
     Returns:
         List of rooms.
     """
@@ -115,6 +117,11 @@ def load_rooms() -> set[Room]:
     # load rooms
     rooms_files = list(DIR_ROOMS_CACHE.glob("*.json"))
     rooms = {Room(**json.loads(open(file).read())) for file in rooms_files}
+
+    # exit if no events are found
+    if exit_if_empty and len(rooms) == 0:
+        print("\nNo rooms found! Run `fetch` command to load room info from API.")
+        exit()
     return rooms
 
 
@@ -122,7 +129,7 @@ def load_ratings(exit_if_empty: bool) -> set[Rating]:
     """Load all ratings from disk.
 
     Args:
-        exit_if_empty: Exit if no events are found, and give instructions.
+        exit_if_empty: Exit if no ratings are found, and give instructions.
     Returns:
         List of ratings.
     """
@@ -133,7 +140,7 @@ def load_ratings(exit_if_empty: bool) -> set[Rating]:
     ratings_files = list(DIR_RATINGS_CACHE.glob("*.json"))
     ratings = {Rating(**json.loads(open(file).read())) for file in ratings_files}
 
-    # warn if no events are found
+    # exit if no events are found
     if exit_if_empty and len(ratings) == 0:
         print("\nNo ratings found! Run `rate` command to rate events.")
         exit()
