@@ -67,11 +67,11 @@ Latest ratings:
 ```
 $ optimal-congress optimize
 
-loading events and ratings from cache...
+loading events, ratings, and rooms from cache...
 
 Scheduled events:
-- Wed 27 10:30-11:00: 37C3: Feierliche Eröffnung...........................https://events.ccc.de/congress/2023/hub/en/event/37c3_feierliche_eroffnung
-- Wed 27 13:00-15:30: POTA – Parks on the Air [Day 1]......................https://events.ccc.de/congress/2023/hub/en/event/pota-parks-on-the-air
+- Wed 27 10:30-11:00 Saal 1..........37C3: Feierliche Eröffnung................https://events.ccc.de/congress/2023/hub/en/event/37c3_feierliche_eroffnung
+- Wed 27 11:00-11:40 Saal Granville..The Trouble with Green Electricity Certi..https://events.ccc.de/congress/2023/hub/en/event/the_trouble_with_green_electricity_certificates
 ...
 ```
 

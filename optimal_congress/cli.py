@@ -174,7 +174,7 @@ def optimize(
     )
 
     # print scheduled events
-    print("Scheduled events:")
+    print("\nScheduled events:")
     for event in events_sorted:
         # get room name via event's room id
         room = next((room for room in rooms if room.id == event.room), None)
