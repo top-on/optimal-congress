@@ -86,5 +86,4 @@ poetry run tox
 
 ## Roadmap
 
-- new command 'next', for next N events. with 'minimum rating' as filter argument
 - test export of schedule to iOS app via QR code

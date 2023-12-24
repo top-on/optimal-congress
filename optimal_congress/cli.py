@@ -177,8 +177,69 @@ def optimize(
     print("\nScheduled events:")
     for event in events_sorted:
         # get room name via event's room id
-        room = next((room for room in rooms if room.id == event.room), None)
-        room_name = f"{room.name}" if room else ""
+        try:
+            room_name = {room for room in rooms if room.id == event.room}.pop().name
+        except KeyError:
+            room_name = str()
+
+        start_time = event.schedule_start.strftime("%a %d %H:%M")
+        end_time = event.schedule_end.strftime("%H:%M")
+        print(
+            f"- {start_time}-{end_time} {room_name[:15]:.<16}"
+            f"{event.name[:40]:.<42}{event.url}"
+        )
+
+
+@app.command()
+def next(
+    min_rating: float = typer.Option(
+        5.0,
+        "-r",
+        "--rating",
+        help="Minimum rating required for event to be listed.",
+    ),
+    num_events: int = typer.Option(
+        10,
+        "-n",
+        "--number",
+        help="Number of events to list.",
+    ),
+) -> None:
+    """List next upcoming events, filtered by minimum rating."""
+    # get current time
+    now = pd.Timestamp.now(tz="Europe/Berlin")
+
+    print("loading events, ratings, and rooms from cache...")
+    events = load_events(exit_if_empty=True)
+    rooms: set[Room] = load_rooms(exit_if_empty=True)
+
+    # join ratings with their events
+    event_ratings = join_events_with_ratings(
+        ratings=load_ratings(exit_if_empty=True),
+        events=events,
+    )
+
+    # filter events by minimum required rating, and 'is in future'
+    events_filtered = {
+        event_rating.event
+        for event_rating in event_ratings
+        if event_rating.rating.score >= min_rating
+        and event_rating.event.schedule_start > now
+    }
+
+    # sort events by start time, keep only first n
+    events_sorted = sorted(
+        events_filtered, key=lambda event: event.schedule_start, reverse=False
+    )[:num_events]
+
+    # print scheduled events
+    print("\nNext events:")
+    for event in events_sorted:
+        # get room name via event's room id
+        try:
+            room_name = {room for room in rooms if room.id == event.room}.pop().name
+        except KeyError:
+            room_name = str()
 
         start_time = event.schedule_start.strftime("%a %d %H:%M")
         end_time = event.schedule_end.strftime("%H:%M")
