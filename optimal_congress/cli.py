@@ -1,6 +1,7 @@
 """Main entry point for the 37c3 schedule optimizer."""
 # %%
 import logging
+import os
 from pathlib import Path
 
 import pandas as pd
@@ -25,6 +26,9 @@ from optimal_congress.ratings import (
     join_events_with_ratings,
 )
 
+# deactivate color for rich/colorama
+os.environ["NO_COLOR"] = "1"
+
 app = typer.Typer(
     add_completion=False,
     context_settings={"help_option_names": ["-h", "--help"]},
@@ -33,7 +37,14 @@ app = typer.Typer(
 
 # %%
 @app.callback()
-def users_callback(verbose: bool = typer.Option(False, "-v", "--verbose")) -> None:
+def users_callback(
+    verbose: bool = typer.Option(
+        False,
+        "-v",
+        "--verbose",
+        help="Include debug messages in output.",
+    ),
+) -> None:
     """Optimize your personal schedule for the 37c3."""
     # set log level
     log_level = logging.DEBUG if verbose else logging.INFO

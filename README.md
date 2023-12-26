@@ -20,23 +20,25 @@ pip install optimal-congress
 `optimal-congress` provides the following commands:
 
 ```
-$ optimal-congress --help
-Usage: optimal-congress [OPTIONS] COMMAND [ARGS]...
-
-  Optimize your personal schedule for the 37c3.
-
-Options:
-  -v, --verbose
-  -h, --help     Show this message and exit.
-
-Commands:
-  dump      Export all latest ratings to CSV, for bulk editing.
-  fetch     Fetch events and rooms from API, and update local cache.
-  load      Bulk import ratings from CSV.
-  next      List next upcoming events, filtered by minimum rating.
-  optimize  Optimize the schedule based on ratings.
-  rate      Interactively rate those events that have not been rated yet.
-  ratings   List all latest ratings.
+$ optimal-congress -h
+                                                                                                                                                                                
+ Usage: optimal-congress [OPTIONS] COMMAND [ARGS]...                                                                                                                            
+                                                                                                                                                                                
+ Optimize your personal schedule for the 37c3.                                                                                                                                  
+                                                                                                                                                                                
+╭─ Options ────────────────────────────────────────────────────────────────────────────╮
+│ --verbose  -v        Include debug messages in output.                               │
+│ --help     -h        Show this message and exit.                                     │
+╰──────────────────────────────────────────────────────────────────────────────────────╯
+╭─ Commands ───────────────────────────────────────────────────────────────────────────╮
+│ dump                   Export all latest ratings to CSV, for bulk editing.           │
+│ fetch                  Fetch events and rooms from API, and update local cache.      │
+│ load                   Bulk import ratings from CSV.                                 │
+│ next                   List next upcoming events, filtered by minimum rating.        │
+│ optimize               Optimize the schedule based on ratings.                       │
+│ rate                   Interactively rate those events that have not been rated yet. │
+│ ratings                List all latest ratings.                                      │
+╰──────────────────────────────────────────────────────────────────────────────────────╯
 ```
 
 ## Example Workflow
