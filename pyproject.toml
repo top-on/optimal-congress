@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "optimal-congress"
-version = "0.7.1"
+version = "0.7.2"
 description = "CLI to find an optimal, personal schedule for the 37c3 congress."
 homepage = "https://github.com/top-on/optimal-congress"
 authors = ["top-on <top-on@posteo.de>"]
@@ -9,12 +9,13 @@ packages = [{ include = "optimal_congress" }]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-pydantic = "^2.5.2"
-typer = { extras = ["all"], version = "^0.9.0" } # extras include rich
-pytz = "^2023.3.post1"
-pulp = "^2.7.0"
 pandas = "^2.1.4"
 pandera = "^0.18.0"
+pulp = "^2.7.0"
+pydantic = "^2.5.2"
+pytz = "^2023.3.post1"
+requests = "^2.31.0"
+typer = { extras = ["all"], version = "^0.9.0" } # extras include rich
 
 [tool.poetry.group.dev.dependencies]
 ipykernel = "^6.27.1"

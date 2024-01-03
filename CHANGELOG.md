@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.7.2] - 2024-01-03
+### Fixed
+- list requests as explicit dependency
+
 ## [0.7.1] - 2023-12-26
 ### Fixed
 - turn off color if rich dependency is present, and enforce its presence
