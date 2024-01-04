@@ -2,6 +2,10 @@
 
 Command Line Interface to find an optimal, personal schedule for the [37c3 congress](https://events.ccc.de/congress/2023/infos/).
 
+## Project status
+
+⚠️ Development for this project is currently on hold. It can quickly be adapted for [future CCC events](https://events.ccc.de/). ⚠️
+
 ## Optimization logic
 
 The optimization relies on a simple 2-fold logic:
@@ -21,11 +25,11 @@ pip install optimal-congress
 
 ```
 $ optimal-congress -h
-                                                                                                                                                                                
- Usage: optimal-congress [OPTIONS] COMMAND [ARGS]...                                                                                                                            
-                                                                                                                                                                                
- Optimize your personal schedule for the 37c3.                                                                                                                                  
-                                                                                                                                                                                
+
+ Usage: optimal-congress [OPTIONS] COMMAND [ARGS]...
+
+ Optimize your personal schedule for the 37c3.
+
 ╭─ Options ────────────────────────────────────────────────────────────────────────────╮
 │ --verbose  -v        Include debug messages in output.                               │
 │ --help     -h        Show this message and exit.                                     │
@@ -112,4 +116,7 @@ poetry run tox
 
 ## Roadmap
 
-- test export of schedule to iOS app via QR code
+- output more/all information with associated events (see [feature request](https://github.com/top-on/optimal-congress/issues/3) and [example](https://www.willmcgugan.com/blog/tech/post/real-working-hyperlinks-in-the-terminal-with-rich/) for more compact hyperlinks with `rich`)
+- change rating scheme, to minimize effort and maximize flexibility (see [feature request](https://github.com/top-on/optimal-congress/issues/4)),<br>
+e.g. by first marking favorites, and only requiring relative ratings for conflicting favorites
+- test export of schedule to iOS app via QR code (same format as halfnarp)
