@@ -6,6 +6,8 @@ from pathlib import Path
 
 import pandas as pd
 import typer
+from rich.console import Console
+from rich.table import Table
 from typing_extensions import Annotated
 
 from optimal_congress.io.api import fetch_events, fetch_rooms
@@ -122,7 +124,7 @@ def rate() -> None:
 def ratings() -> None:
     """List all latest ratings."""
 
-    print("loading events and ratings from cache...")
+    print("loading events, ratings, and rooms from cache...")
     events = load_events(exit_if_empty=True)
     ratings = load_ratings(exit_if_empty=True)
 
@@ -139,12 +141,32 @@ def ratings() -> None:
         key=lambda x: x.rating.score,
         reverse=True,
     )
-    print("\nLatest ratings:")
+
+    # define table
+    table = Table(title="Event Ratings")
+    table.add_column(header="Rating", justify="right", no_wrap=True)
+    table.add_column(header="Title")
+    table.add_column(header="URL", justify="center")
+    table.add_column(header="Time")
+
+    # populate table
     for event_rating in event_ratings_sorted:
-        print(
-            f"- Rating: {event_rating.rating.score} "
-            f"- {event_rating.event.name[:50]:.<52}{event_rating.event.url}"
+        # format time string
+        start_time = event_rating.event.schedule_start.strftime("%a %d %H:%M")
+        end_time = event_rating.event.schedule_end.strftime("%H:%M")
+        time_string = f"{start_time}-{end_time}"
+
+        table.add_row(
+            str(event_rating.rating.score),
+            event_rating.event.name[:50],
+            f"[link={event_rating.event.url}]🔗[/link]",
+            time_string,
         )
+
+    # print table
+    print()  # empty line
+    console = Console()
+    console.print(table)
 
 
 @app.command()
@@ -184,8 +206,14 @@ def optimize(
         scheduled_events, key=lambda event: event.schedule_start, reverse=False
     )
 
-    # print scheduled events
-    print("\nScheduled events:")
+    # define table
+    table = Table(title="\nScheduled events:")
+    table.add_column(header="Time")
+    table.add_column(header="Room")
+    table.add_column(header="Title")
+    table.add_column(header="URL", justify="center")
+
+    # populate table
     for event in events_sorted:
         # get room name via event's room id
         try:
@@ -193,12 +221,22 @@ def optimize(
         except KeyError:
             room_name = str()
 
+        # format time string
         start_time = event.schedule_start.strftime("%a %d %H:%M")
         end_time = event.schedule_end.strftime("%H:%M")
-        print(
-            f"- {start_time}-{end_time} {room_name[:15]:.<16}"
-            f"{event.name[:40]:.<42}{event.url}"
+        time_string = f"{start_time} - {end_time}"
+
+        table.add_row(
+            time_string,
+            room_name,
+            event.name[:60],
+            f"[link={event.url}]🔗[/link]",
         )
+
+    # print table
+    print()  # empty line
+    console = Console()
+    console.print(table)
 
 
 @app.command()
