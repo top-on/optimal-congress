@@ -1,32 +1,35 @@
 [tool.poetry]
-name = "optimal-congress"
-version = "0.7.4"
+authors = ["top-on <top-on@posteo.de>"]
 description = "CLI to find an optimal, personal schedule for the 37c3 congress."
 homepage = "https://github.com/top-on/optimal-congress"
-authors = ["top-on <top-on@posteo.de>"]
+name = "optimal-congress"
+packages = [{include = "optimal_congress"}]
 readme = "README.md"
-packages = [{ include = "optimal_congress" }]
+version = "0.7.4"
 
 [tool.poetry.dependencies]
-python = "^3.10"
-pandas = "^2.1.4"
-pandera = "^0.18.0"
-pulp = "^2.7.0"
-pydantic = "^2.5.2"
-pytz = "^2023.3.post1"
-requests = "^2.31.0"
-typer = { extras = ["all"], version = "^0.9.0" } # extras include rich
+pandas = "^2.2.3"
+pandera = "^0.21.1"
+pulp = "^2.9.0"
+pydantic = "^2.10.3"
+python = "^3.11"
+pytz = "^2024.2"
+requests = "^2.32.3"
+typer = {extras = ["all"], version = "^0.15.1"}# extras include rich
 
 [tool.poetry.group.dev.dependencies]
-ipykernel = "^6.27.1"
+ipykernel = "^6.29.5"
 notebook = "^7.0.7"
-ruff = "^0.1.6"
-mypy = "^1.7.1"
-pytest = "^7.4.3"
+# linting
+mypy = "^1.13.0"
 pre-commit = "^3.6.0"
-types-requests = "^2.31.0.10"
-types-pytz = "^2023.3.1.1"
+ruff = "^0.8.3"
+# testing
+pytest = "^7.4.3"
 tox = "^4.11.4"
+# stubs
+types-pytz = "^2024.2"
+types-requests = "^2.32"
 
 [tool.poetry.scripts]
 optimal-congress = "optimal_congress.cli:app"
@@ -40,15 +43,13 @@ line-length = 88
 
 [tool.ruff.lint]
 select = [
-    # Pyflakes
-    "F",
-    # Pycodestyle
-    "E",
-    "W",
-    # isort
-    "I001",
+  # Pyflakes
+  "F", # Pycodestyle
+  "E",
+  "W", # isort
+  "I",
 ]
 
 [build-system]
-requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core"]
