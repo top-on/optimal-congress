@@ -22,7 +22,7 @@ ipykernel = "^6.29.5"
 notebook = "^7.0.7"
 # linting
 mypy = "^1.13.0"
-pre-commit = "^3.6.0"
+pre-commit = "^4.0.1"
 ruff = "^0.8.3"
 # testing
 pytest = "^7.4.3"
