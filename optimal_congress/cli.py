@@ -1,4 +1,5 @@
-"""Main entry point for the 37c3 schedule optimizer."""
+"""Main entry point for the schedule optimizer."""
+
 # %%
 import logging
 import os
@@ -47,7 +48,7 @@ def users_callback(
         help="Include debug messages in output.",
     ),
 ) -> None:
-    """Optimize your personal schedule for the 37c3."""
+    """Optimize your personal schedule for the 38c3."""
     # set log level
     log_level = logging.DEBUG if verbose else logging.INFO
     logging.basicConfig(level=log_level, format="%(message)s")

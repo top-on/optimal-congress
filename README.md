@@ -24,7 +24,7 @@ $ optimal-congress -h
 
  Usage: optimal-congress [OPTIONS] COMMAND [ARGS]...
 
- Optimize your personal schedule for the 37c3.
+ Optimize your personal schedule for the 38c3.
 
 ╭─ Options ────────────────────────────────────────────────────────────────────────────╮
 │ --verbose  -v        Include debug messages in output.                               │
@@ -112,6 +112,9 @@ poetry run tox
 
 ## Long-term Roadmap
 
+- add github action for pytest, ruff, and mypy
+- add latest UI examples to README
+- use rich table for `next` view
 - output more/all information with associated events (see [feature request](https://github.com/top-on/optimal-congress/issues/3) and [example](https://www.willmcgugan.com/blog/tech/post/real-working-hyperlinks-in-the-terminal-with-rich/) for more compact hyperlinks with `rich`)
 - change rating scheme, to minimize effort and maximize flexibility (see [feature request](https://github.com/top-on/optimal-congress/issues/4)),<br>
 e.g. by first marking favorites, and only requiring relative ratings for conflicting favorites

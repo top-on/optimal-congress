@@ -1,6 +1,5 @@
 """IO operations on local cache."""
 
-
 import json
 
 from optimal_congress.config import (

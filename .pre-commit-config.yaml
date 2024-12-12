@@ -9,22 +9,14 @@ repos:
         args: [--fix=auto]
       - id: trailing-whitespace
       - id: check-added-large-files
-  - repo: local
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.8.3 # keep in sync with pyproject.toml
     hooks:
       - id: ruff
-        name: ruff
-        entry: ruff
-        language: system
-        require_serial: true
-        types: [python]
+        args: [--fix]
+      - id: ruff-format
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.13.0 # keep in sync with pyproject.toml
+    hooks:
       - id: mypy
-        name: mypy
-        entry: mypy
-        language: system
-        require_serial: true
-        types: [python]
-      - id: pytest
-        name: pytest
-        entry: pytest tests/
-        language: system
-        types: [python]
+        additional_dependencies: [types-requests~=2.32, types-pytz~=2024.2]
