@@ -1,6 +1,6 @@
 # Optimal Congress
 
-Command Line Interface to find an optimal, personal schedule for the [37c3 congress](https://events.ccc.de/congress/2023/infos/).
+Command Line Interface to find an optimal, personal schedule for the [38c3 congress](https://events.ccc.de/congress/2024/infos/).
 
 ## Project status
 
