@@ -1,6 +1,6 @@
 [tool.poetry]
 authors = ["top-on <top-on@posteo.de>"]
-description = "CLI to find an optimal, personal schedule for the 37c3 congress."
+description = "CLI to find an optimal, personal schedule for the 38c3 congress."
 homepage = "https://github.com/top-on/optimal-congress"
 name = "optimal-congress"
 packages = [{include = "optimal_congress"}]

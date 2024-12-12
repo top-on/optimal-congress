@@ -2,10 +2,6 @@
 
 Command Line Interface to find an optimal, personal schedule for the [38c3 congress](https://events.ccc.de/congress/2024/infos/).
 
-## Project status
-
-⚠️ Development for this project is currently on hold. It can quickly be adapted for [future CCC events](https://events.ccc.de/). ⚠️
-
 ## Optimization logic
 
 The optimization relies on a simple 2-fold logic:
@@ -114,7 +110,7 @@ To run all tests, across multiple python versions:
 poetry run tox
 ```
 
-## Roadmap
+## Long-term Roadmap
 
 - output more/all information with associated events (see [feature request](https://github.com/top-on/optimal-congress/issues/3) and [example](https://www.willmcgugan.com/blog/tech/post/real-working-hyperlinks-in-the-terminal-with-rich/) for more compact hyperlinks with `rich`)
 - change rating scheme, to minimize effort and maximize flexibility (see [feature request](https://github.com/top-on/optimal-congress/issues/4)),<br>
