@@ -28,7 +28,7 @@ from optimal_congress.ratings import (
     filter_unrated_events,
     join_events_with_ratings,
 )
-from optimal_congress.schema import Rating, RatingsExport, Room
+from optimal_congress.schema import EventLanguage, Rating, RatingsExport, Room
 
 # deactivate color for rich/colorama
 os.environ["NO_COLOR"] = "1"
@@ -102,8 +102,25 @@ def fetch(
 
 
 @app.command()
-def rate() -> None:
-    """Interactively rate those events that have not been rated yet."""
+def rate(
+    language: str | None = typer.Option(
+        None,
+        "-l",
+        "--language",
+        help="Filter events to be rated by language (providing as 2-letter code).",
+    ),
+) -> None:
+    """Interactively rate those events that have not been rated yet.
+
+    Example:
+    optimal-congress rate --language en
+    """
+    # validate input
+    if language is not None and language not in EventLanguage.__args__:  # type: ignore
+        raise typer.BadParameter(
+            f"Invalid language code: {language}. "
+            f"Should be one of {list(EventLanguage.__args__)}.",  # type: ignore
+        )
 
     print("loading events and ratings from cache...")
     events = load_events(exit_if_empty=True)
@@ -111,6 +128,7 @@ def rate() -> None:
 
     print(f"\nFound {len(events)} events and {len(ratings)} ratings.")
 
+    # consider previous ratings
     unrated_events = filter_unrated_events(
         events=events,
         ratings=ratings,
@@ -118,6 +136,18 @@ def rate() -> None:
     if len(unrated_events) == 0:
         print("\nNo new events to rate. Exiting.")
         exit()
+
+    # keep only events with relevant language
+    if language is not None:
+        unrated_events = {
+            event
+            for event in unrated_events
+            if event.language is not None
+            if language in event.language
+        }
+        if len(unrated_events) == 0:
+            print(f"\nNo unrated events in chosen language '{language}'. Exiting.")
+            exit()
 
     enquire_and_save_ratings(events=unrated_events)
     print("Done.")

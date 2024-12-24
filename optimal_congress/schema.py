@@ -4,9 +4,13 @@ from datetime import datetime
 from uuid import UUID
 
 import pandera as pa
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
+from typing_extensions import Literal
 
 from optimal_congress.config import HUB_EVENT_ROUTE
+
+# languages to accept for events
+EventLanguage = Literal["de", "en"]
 
 
 class Room(BaseModel):
@@ -29,9 +33,24 @@ class Event(BaseModel):
     track: str | None
     assembly: str
     room: UUID | None
+    language: list[EventLanguage] | None = Field(default=None)
     description: str
     schedule_start: datetime
     schedule_end: datetime
+
+    @field_validator("language", mode="before")
+    @classmethod
+    def languages_to_list(
+        cls, value: list[EventLanguage] | str | None
+    ) -> list[str] | None:
+        if value is None:
+            return None
+        if isinstance(value, list):
+            # here: already parsed to list
+            return [i.strip() for i in value]  # type: ignore
+        # here: value is a string
+        language_list_stripped = [i.strip() for i in value.split(",")]
+        return language_list_stripped
 
     def __hash__(self) -> int:
         """Events are equal, if they have same ID - regardless of other properties."""
