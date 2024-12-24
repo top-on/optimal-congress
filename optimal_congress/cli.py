@@ -21,7 +21,6 @@ from optimal_congress.io.cache import (
     save_ratings,
     save_rooms,
 )
-from optimal_congress.models import Rating, RatingsExport, Room
 from optimal_congress.optimize import optimize_schedule
 from optimal_congress.ratings import (
     enquire_and_save_ratings,
@@ -29,6 +28,7 @@ from optimal_congress.ratings import (
     filter_unrated_events,
     join_events_with_ratings,
 )
+from optimal_congress.schema import Rating, RatingsExport, Room
 
 # deactivate color for rich/colorama
 os.environ["NO_COLOR"] = "1"

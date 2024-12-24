@@ -5,7 +5,7 @@ import json
 import requests
 
 from optimal_congress.config import API_EVENTS, API_ROOMS
-from optimal_congress.models import Event, Room
+from optimal_congress.schema import Event, Room
 
 
 def fetch_events() -> set[Event]:

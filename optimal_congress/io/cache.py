@@ -7,7 +7,7 @@ from optimal_congress.config import (
     DIR_RATINGS_CACHE,
     DIR_ROOMS_CACHE,
 )
-from optimal_congress.models import Event, Rating, Room
+from optimal_congress.schema import Event, Rating, Room
 
 
 def save_events(events: set[Event]) -> None:

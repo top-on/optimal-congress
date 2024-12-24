@@ -3,7 +3,7 @@
 import os
 
 from optimal_congress.config import DIR_RATINGS_CACHE
-from optimal_congress.models import Event, EventRating, Rating
+from optimal_congress.schema import Event, EventRating, Rating
 
 
 def filter_latest_ratings(ratings: set[Rating]) -> set[Rating]:
