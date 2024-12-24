@@ -5,7 +5,7 @@ homepage = "https://github.com/top-on/optimal-congress"
 name = "optimal-congress"
 packages = [{include = "optimal_congress"}]
 readme = "README.md"
-version = "1.0.2"
+version = "1.1.0"
 
 [tool.poetry.dependencies]
 pandas = "^2.2.3"
