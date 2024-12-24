@@ -3,6 +3,7 @@
 # %%
 import logging
 import os
+from importlib import metadata
 from pathlib import Path
 
 import pandas as pd
@@ -395,6 +396,13 @@ def load(
         exit()
     print(f"Saving {len(ratings)} ratings to cache...")
     save_ratings(ratings=ratings)
+
+
+@app.command()
+def version() -> None:
+    """Print version and exit."""
+    version = metadata.version(distribution_name="optimal-congress")
+    print(version)
 
 
 # %%
