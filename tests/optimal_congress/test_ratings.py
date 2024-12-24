@@ -6,8 +6,8 @@ from uuid import uuid4
 import pytest
 from pytz import timezone
 
-from optimal_congress.models import Event, EventRating, Rating
 from optimal_congress.ratings import filter_latest_ratings, join_events_with_ratings
+from optimal_congress.schema import Event, EventRating, Rating
 
 UUID1 = uuid4()
 TZ_DE = timezone("Europe/Berlin")
