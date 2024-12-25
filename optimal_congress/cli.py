@@ -18,7 +18,7 @@ from optimal_congress.io.cache import (
     load_ratings,
     load_rooms,
     save_events,
-    save_ratings,
+    save_rating,
     save_rooms,
 )
 from optimal_congress.optimize import optimize_schedule
@@ -425,7 +425,8 @@ def load(
         print("\nDryrun, not updating cache.")
         exit()
     print(f"Saving {len(ratings)} ratings to cache...")
-    save_ratings(ratings=ratings)
+    for rating in ratings:
+        save_rating(rating=rating)
 
 
 @app.command()

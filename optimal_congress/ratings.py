@@ -2,7 +2,7 @@
 
 import os
 
-from optimal_congress.config import DIR_RATINGS_CACHE
+from optimal_congress.io.cache import save_rating
 from optimal_congress.schema import Event, EventRating, Rating
 
 
@@ -69,9 +69,8 @@ def enquire_and_save_ratings(events: set[Event]) -> None:
         rating = Rating(event_id=event.id, score=float(score))
 
         # save rating
-        with open(DIR_RATINGS_CACHE / f"rating_{event.id}.json", "w") as f:
-            print(f"Saving rating '{rating.score}' for event '{event.name}'...")
-            f.write(rating.model_dump_json())
+        print(f"Saving rating '{rating.score}' for event '{event.name}'...")
+        save_rating(rating=rating)
 
 
 def join_events_with_ratings(

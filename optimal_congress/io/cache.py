@@ -10,17 +10,23 @@ from optimal_congress.config import (
 from optimal_congress.schema import Event, Rating, Room
 
 
-def save_events(events: set[Event]) -> None:
+def save_events(
+    events: set[Event],
+    clear: bool = True,
+) -> None:
     """Save events to cache.
 
-    Note: This function overwrites all cached events.
+    Args:
+        events: List of events to save.
+        clear: Whether to clear all cached events before saving. Defaults to True.
     """
-    # create events directory if it doesn't exist
+    # create events cache directory, if it does not exist
     DIR_EVENTS_CACHE.mkdir(parents=True, exist_ok=True)
 
     # empty cache
-    for file in DIR_EVENTS_CACHE.glob("*.json"):
-        file.unlink()
+    if clear:
+        for file in DIR_EVENTS_CACHE.glob("*.json"):
+            file.unlink()
 
     # save events
     for event in events:
@@ -28,17 +34,23 @@ def save_events(events: set[Event]) -> None:
             f.write(event.model_dump_json())
 
 
-def save_rooms(rooms: set[Room]) -> None:
+def save_rooms(
+    rooms: set[Room],
+    clear: bool = True,
+) -> None:
     """Save rooms to cache.
 
-    Note: This function overwrites all cached rooms.
+    Args:s
+        rooms: List of rooms to save.
+        clear: Whether to clear all cached rooms before saving. Defaults to True.
     """
     # create rooms directory if it doesn't exist
     DIR_ROOMS_CACHE.mkdir(parents=True, exist_ok=True)
 
     # empty cache
-    for file in DIR_ROOMS_CACHE.glob("*.json"):
-        file.unlink()
+    if clear:
+        for file in DIR_ROOMS_CACHE.glob("*.json"):
+            file.unlink()
 
     # save rooms
     for room in rooms:
@@ -46,28 +58,10 @@ def save_rooms(rooms: set[Room]) -> None:
             f.write(room.model_dump_json())
 
 
-def save_ratings(ratings: set[Rating]) -> None:
-    """Save ratings to cache.
-
-    Note: This does not replace cached rating for the same event.
-    """
-    # create ratings directory if it doesn't exist
-    DIR_RATINGS_CACHE.mkdir(parents=True, exist_ok=True)
-
-    # save ratings
-    for rating in ratings:
-        with open(
-            DIR_RATINGS_CACHE / f"rating_{rating.event_id}_{rating.timestamp}.json",
-            "w",
-        ) as f:
-            f.write(rating.model_dump_json())
-
-
-# OPTIONAL: replace by save_ratings
 def save_rating(rating: Rating) -> None:
-    """Save an individual rating to cache.
+    """Save single new rating to cache.
 
-    Note: This does not replace cached rating for the same event.
+    Note: This does not overwrite cached rating for the same event.
     """
     # create ratings directory if it doesn't exist
     DIR_RATINGS_CACHE.mkdir(parents=True, exist_ok=True)
