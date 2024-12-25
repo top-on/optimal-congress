@@ -1,5 +1,7 @@
 # Optimal Congress
 
+[![pre-commit](https://github.com/top-on/optimal-congress/actions/workflows/pre-commit.yml/badge.svg)](https://github.com/top-on/optimal-congress/actions/workflows/pre-commit.yml)
+
 Command Line Interface to find an optimal, personal schedule for the [38c3 congress](https://events.ccc.de/congress/2024/infos/).
 
 ## Optimization logic
