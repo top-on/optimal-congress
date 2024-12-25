@@ -22,6 +22,7 @@ TZ_DE = timezone("Europe/Berlin")
                 track="foo",
                 assembly="foo",
                 room=None,
+                language=["de"],
                 description="foo",
                 schedule_start=datetime(2023, 12, 27, 12, tzinfo=TZ_DE),
                 schedule_end=datetime(2023, 12, 27, 14, tzinfo=TZ_DE),
@@ -33,6 +34,7 @@ TZ_DE = timezone("Europe/Berlin")
                 track="bar",
                 assembly="bar",
                 room=None,
+                language=["de"],
                 description="bar",
                 schedule_start=datetime(2023, 12, 27, 13, tzinfo=TZ_DE),
                 schedule_end=datetime(2023, 12, 27, 15, tzinfo=TZ_DE),
@@ -47,6 +49,7 @@ TZ_DE = timezone("Europe/Berlin")
                 track="foo",
                 assembly="foo",
                 room=None,
+                language=["de"],
                 description="foo",
                 schedule_start=datetime(2023, 12, 27, 12, tzinfo=TZ_DE),
                 schedule_end=datetime(2023, 12, 27, 14, tzinfo=TZ_DE),
@@ -58,6 +61,7 @@ TZ_DE = timezone("Europe/Berlin")
                 track="bar",
                 assembly="bar",
                 room=None,
+                language=["de"],
                 description="bar",
                 schedule_start=datetime(2023, 12, 27, 15, tzinfo=TZ_DE),
                 schedule_end=datetime(2023, 12, 27, 17, tzinfo=TZ_DE),
@@ -72,6 +76,7 @@ TZ_DE = timezone("Europe/Berlin")
                 track="foo",
                 assembly="foo",
                 room=None,
+                language=["de"],
                 description="foo",
                 schedule_start=datetime(2023, 12, 27, hour=12, tzinfo=TZ_DE),
                 schedule_end=datetime(2023, 12, 27, 13, tzinfo=TZ_DE),
@@ -83,6 +88,7 @@ TZ_DE = timezone("Europe/Berlin")
                 track="bar",
                 assembly="bar",
                 room=None,
+                language=["de"],
                 description="bar",
                 schedule_start=datetime(2023, 12, 27, 13, tzinfo=TZ_DE),
                 schedule_end=datetime(2023, 12, 27, 14, tzinfo=TZ_DE),
@@ -101,7 +107,7 @@ def test_events_overlap(event1: Event, event2: Event, expected: bool):
     assert result1 == expected
 
 
-def test_event_hashing():
+def test_event_is_equal():
     """Assure that events with same id are equal."""
     event1 = Event(
         id=uuid4(),
@@ -110,6 +116,7 @@ def test_event_hashing():
         track="foo",
         assembly="foo",
         room=None,
+        language=["de"],
         description="foo",
         schedule_start=datetime(2023, 12, 27, 12, tzinfo=TZ_DE),
         schedule_end=datetime(2023, 12, 27, 14, tzinfo=TZ_DE),
@@ -121,9 +128,44 @@ def test_event_hashing():
         track="bar",
         assembly="bar",
         room=None,
+        language=["de"],
         description="bar",
         schedule_start=datetime(2023, 12, 27, 13, tzinfo=TZ_DE),
         schedule_end=datetime(2023, 12, 27, 15, tzinfo=TZ_DE),
     )
 
     assert event1 == event2
+
+
+# @pytest.mark.parametrize(
+#     "event1, event2",
+#     [
+#         (
+#             Event(
+#                 id=uuid4(),
+#                 name="foo",
+#                 slug="foo",
+#                 track="foo",
+#                 assembly="foo",
+#                 room=None,
+#                 description="foo",
+#                 schedule_start=datetime(2023, 12, 27, 15, tzinfo=TZ_DE),
+#                 schedule_end=datetime(2023, 12, 27, 17, tzinfo=TZ_DE),
+#             ),
+#             Event(
+#                 id=uuid4(),
+#                 name="bar",
+#                 slug="bar",
+#                 track="bar",
+#                 assembly="bar",
+#                 room=None,
+#                 description="bar",
+#                 schedule_start=datetime(2023, 12, 27, 15, tzinfo=TZ_DE),
+#                 schedule_end=datetime(2023, 12, 27, 17, tzinfo=TZ_DE),
+#             ),
+#         ),
+#     ],
+# )
+# def test_event_not_equal(event1: Event, event2: Event):
+#     """Assure that events with different id are not equal."""
+#     assert event1 != event2
