@@ -27,7 +27,7 @@ class Room(BaseModel):
 
 def parse_language(
     value: list[EventLanguage] | str | None,
-) -> list[str] | None:
+) -> list[EventLanguage] | None:
     """Parse a language value to the expected list of languages.
 
     Args:
@@ -35,14 +35,13 @@ def parse_language(
     Returns:
         The parsed list of languages, or None.
     """
-    if value is None:
-        return None
-    if isinstance(value, list):
-        # here: already parsed to list
-        return [i.strip() for i in value]  # type: ignore
-    # here: value is a string
-    language_list_stripped = [i.strip() for i in value.split(",")]
-    return language_list_stripped
+    match value:
+        case None:
+            return None
+        case list():
+            return value
+        case str():
+            return [i.strip() for i in value.split(",")]  # type: ignore
 
 
 class Event(BaseModel):
