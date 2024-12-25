@@ -35,13 +35,14 @@ $ optimal-congress -h
 │ --help     -h        Show this message and exit.                                     │
 ╰──────────────────────────────────────────────────────────────────────────────────────╯
 ╭─ Commands ───────────────────────────────────────────────────────────────────────────╮
-│ dump                   Export all latest ratings to CSV, for bulk editing.           │
 │ fetch                  Fetch events and rooms from API, and update local cache.      │
-│ load                   Bulk import ratings from CSV.                                 │
-│ next                   List next upcoming events, filtered by minimum rating.        │
-│ optimize               Optimize the schedule based on ratings.                       │
 │ rate                   Interactively rate those events that have not been rated yet. │
 │ ratings                List all latest ratings.                                      │
+│ optimize               Optimize the schedule based on ratings.                       │
+│ next                   List next upcoming events, filtered by minimum rating.        │
+│ dump                   Export all latest ratings to CSV, for bulk editing.           │
+│ load                   Bulk import ratings from CSV.                                 │
+│ version                Print version and exit.                                       │
 ╰──────────────────────────────────────────────────────────────────────────────────────╯
 ```
 
