@@ -118,7 +118,6 @@ poetry run tox
 
 ## Long-term Roadmap
 
-- add github action for pytest, ruff, and mypy
 - add latest UI examples to README
 - use rich table for `next` view
 - output more/all information with associated events (see [feature request](https://github.com/top-on/optimal-congress/issues/3) and [example](https://www.willmcgugan.com/blog/tech/post/real-working-hyperlinks-in-the-terminal-with-rich/) for more compact hyperlinks with `rich`)
