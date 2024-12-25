@@ -137,35 +137,35 @@ def test_event_is_equal():
     assert event1 == event2
 
 
-# @pytest.mark.parametrize(
-#     "event1, event2",
-#     [
-#         (
-#             Event(
-#                 id=uuid4(),
-#                 name="foo",
-#                 slug="foo",
-#                 track="foo",
-#                 assembly="foo",
-#                 room=None,
-#                 description="foo",
-#                 schedule_start=datetime(2023, 12, 27, 15, tzinfo=TZ_DE),
-#                 schedule_end=datetime(2023, 12, 27, 17, tzinfo=TZ_DE),
-#             ),
-#             Event(
-#                 id=uuid4(),
-#                 name="bar",
-#                 slug="bar",
-#                 track="bar",
-#                 assembly="bar",
-#                 room=None,
-#                 description="bar",
-#                 schedule_start=datetime(2023, 12, 27, 15, tzinfo=TZ_DE),
-#                 schedule_end=datetime(2023, 12, 27, 17, tzinfo=TZ_DE),
-#             ),
-#         ),
-#     ],
-# )
-# def test_event_not_equal(event1: Event, event2: Event):
-#     """Assure that events with different id are not equal."""
-#     assert event1 != event2
+@pytest.mark.parametrize(
+    "event1, event2",
+    [
+        (
+            Event(
+                id=uuid4(),
+                name="foo",
+                slug="foo",
+                track="foo",
+                assembly="foo",
+                room=None,
+                description="foo",
+                schedule_start=datetime(2023, 12, 27, 15, tzinfo=TZ_DE),
+                schedule_end=datetime(2023, 12, 27, 17, tzinfo=TZ_DE),
+            ),
+            Event(
+                id=uuid4(),
+                name="bar",
+                slug="bar",
+                track="bar",
+                assembly="bar",
+                room=None,
+                description="bar",
+                schedule_start=datetime(2023, 12, 27, 15, tzinfo=TZ_DE),
+                schedule_end=datetime(2023, 12, 27, 17, tzinfo=TZ_DE),
+            ),
+        ),
+    ],
+)
+def test_event_not_equal(event1: Event, event2: Event):
+    """Assure that events with different id are not equal."""
+    assert event1 != event2
