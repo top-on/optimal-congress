@@ -109,12 +109,12 @@ Scheduled events:
 
 ## Testing
 
-Software testing uses `pytest`, relying upon `poetry` and `tox`.<br>
-To run all tests, across multiple python versions:
+Testing of this library relies on `pytest`.
+Tests are split into unit tests (`tests/unit`) and integration tests (`tests/integration`).
 
-```bash
-poetry run tox
-```
+To run all tests, use: `poetry run pytest`
+
+Note that the unit tests are executed automatically in the CI pipeline (see `.github/workflows/pytest.yml`).
 
 ## Long-term Roadmap
 

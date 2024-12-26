@@ -26,7 +26,6 @@ pre-commit = "^4.0.1"
 ruff = "0.8.3" # keep in sync with .pre-commit-config.yaml
 # testing
 pytest = "^7.4.3"
-tox = "^4.11.4"
 # stubs
 types-pytz = "^2024.2"
 types-requests = "^2.32"

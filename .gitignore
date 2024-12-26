@@ -12,6 +12,3 @@
 
 # exported data
 *.csv
-
-# testing
-.tox*
