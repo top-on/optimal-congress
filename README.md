@@ -20,6 +20,11 @@ The optimization relies on a simple 2-fold logic:
 pip install optimal-congress
 ```
 
+With nix, you can run this application directly (contact [kaesaecracker](https://github.com/kaesaecracker) if this does not work):
+```bash
+nix run github:top-on/optimal-congress
+```
+
 ## Available commands
 
 `optimal-congress` provides the following commands:
